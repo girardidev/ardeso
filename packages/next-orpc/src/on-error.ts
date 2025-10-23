@@ -15,6 +15,8 @@ export const errorHandler = async (error: unknown) => {
       const res = await fetchRefreshToken();
       if (res) {
         await setAuthCookies(res.token, res.refreshToken);
+      } else {
+        await deleteAuthCookies("/auth/signin");
       }
     }
     return;

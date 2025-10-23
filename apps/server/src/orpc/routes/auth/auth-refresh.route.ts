@@ -29,6 +29,9 @@ export default base
     } catch (error) {
       const message =
         error instanceof Error ? error.message : "Invalid refresh token";
-      throw new ORPCError("UNAUTHORIZED", { message });
+      throw new ORPCError("UNAUTHORIZED", {
+        message,
+        data: { shouldLogOut: true },
+      });
     }
   });
