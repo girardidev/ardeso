@@ -22,6 +22,7 @@
     }
   },
   "devDependencies": {
+    "@repo/drizzle": "workspace:*",
     "@faker-js/faker": "^10.0.0",
     "@repo/typescript-config": "workspace:*",
     "@types/bcrypt": "^6.0.0",

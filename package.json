@@ -4,8 +4,8 @@
   "scripts": {
     "dev": "turbo run watch dev",
     "build:all": "turbo run build",
-    "build:packages": "turbo run build --filter=!@app/admin",
-    "build:admin": "turbo run build --filter=@app/admin...",
+    "build:packages": "turbo run build --filter=!@app/web",
+    "build:web": "turbo run build --filter=@app/web...",
     "build:server": "turbo run build --filter=@app/server...",
     "schema:push": "cd apps/server && pnpm schema:push",
     "schema:seed:dev": "cd apps/server && pnpm schema:seed:dev",

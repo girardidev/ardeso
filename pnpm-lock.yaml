@@ -25,67 +25,6 @@ importers:
         specifier: 5.9.2
         version: 5.9.2
 
-  apps/admin:
-    dependencies:
-      '@hookform/resolvers':
-        specifier: '*'
-        version: 5.2.2(react-hook-form@7.65.0(react@19.0.0))
-      '@repo/next-auth':
-        specifier: workspace:*
-        version: link:../../packages/next-auth
-      '@repo/next-i18n':
-        specifier: workspace:*
-        version: link:../../packages/next-i18n
-      '@repo/next-orpc':
-        specifier: workspace:*
-        version: link:../../packages/next-orpc
-      '@repo/next-ui':
-        specifier: workspace:*
-        version: link:../../packages/next-ui
-      '@tanstack/react-query':
-        specifier: ^5.89.0
-        version: 5.90.5(react@19.0.0)
-      lucide-react:
-        specifier: '*'
-        version: 0.544.0(react@19.0.0)
-      next:
-        specifier: ^15
-        version: 15.5.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      next-themes:
-        specifier: '*'
-        version: 0.4.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      react:
-        specifier: 19.0.0
-        version: 19.0.0
-      react-dom:
-        specifier: 19.0.0
-        version: 19.0.0(react@19.0.0)
-      react-hook-form:
-        specifier: '*'
-        version: 7.65.0(react@19.0.0)
-      react-icons:
-        specifier: ^5.5.0
-        version: 5.5.0(react@19.0.0)
-      zod:
-        specifier: ^4.1.8
-        version: 4.1.12
-    devDependencies:
-      '@repo/typescript-config':
-        specifier: workspace:*
-        version: link:../../packages/typescript-config
-      '@tailwindcss/postcss':
-        specifier: ^4
-        version: 4.1.15
-      '@types/node':
-        specifier: ^20
-        version: 20.19.23
-      '@types/react':
-        specifier: ^19
-        version: 19.0.0
-      '@types/react-dom':
-        specifier: ^19
-        version: 19.0.0
-
   apps/server:
     dependencies:
       '@aws-sdk/client-s3':
@@ -174,6 +113,67 @@ importers:
         specifier: ^5.9.2
         version: 5.9.2
 
+  apps/web:
+    dependencies:
+      '@hookform/resolvers':
+        specifier: '*'
+        version: 5.2.2(react-hook-form@7.65.0(react@19.0.0))
+      '@repo/next-auth':
+        specifier: workspace:*
+        version: link:../../packages/next-auth
+      '@repo/next-i18n':
+        specifier: workspace:*
+        version: link:../../packages/next-i18n
+      '@repo/next-orpc':
+        specifier: workspace:*
+        version: link:../../packages/next-orpc
+      '@repo/next-ui':
+        specifier: workspace:*
+        version: link:../../packages/next-ui
+      '@tanstack/react-query':
+        specifier: ^5.89.0
+        version: 5.90.5(react@19.0.0)
+      lucide-react:
+        specifier: '*'
+        version: 0.544.0(react@19.0.0)
+      next:
+        specifier: ^15
+        version: 15.5.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      next-themes:
+        specifier: '*'
+        version: 0.4.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+      react-hook-form:
+        specifier: '*'
+        version: 7.65.0(react@19.0.0)
+      react-icons:
+        specifier: ^5.5.0
+        version: 5.5.0(react@19.0.0)
+      zod:
+        specifier: ^4.1.8
+        version: 4.1.12
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
+      '@tailwindcss/postcss':
+        specifier: ^4
+        version: 4.1.15
+      '@types/node':
+        specifier: ^20
+        version: 20.19.23
+      '@types/react':
+        specifier: ^19
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: ^19
+        version: 19.0.0
+
   core/constants:
     devDependencies:
       '@repo/typescript-config':
@@ -217,6 +217,9 @@ importers:
       '@faker-js/faker':
         specifier: ^10.0.0
         version: 10.1.0
+      '@repo/drizzle':
+        specifier: workspace:*
+        version: link:../../packages/drizzle
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
@@ -8269,7 +8272,7 @@ snapshots:
 
   '@types/webpack@5.28.5(esbuild@0.25.10)':
     dependencies:
-      '@types/node': 22.14.1
+      '@types/node': 22.18.12
       tapable: 2.3.0
       webpack: 5.102.1(esbuild@0.25.10)
     transitivePeerDependencies:
@@ -9148,7 +9151,7 @@ snapshots:
 
   jest-worker@27.5.1:
     dependencies:
-      '@types/node': 22.14.1
+      '@types/node': 22.18.12
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
