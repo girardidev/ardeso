@@ -16,12 +16,11 @@ import { Input } from "@repo/next-ui/components/ui/input";
 import { toast } from "@repo/next-ui/lib/toast";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { type ReactNode } from "react";
 import { useForm } from "react-hook-form";
-import { FaGoogle } from "react-icons/fa6";
-import z from "zod";
-import type { Dictionary } from "@/i18n";
+import * as z from "zod";
 
-export function SignUpForm({ dict }: { dict: Dictionary }) {
+export function SignUpForm(): ReactNode {
   const orpc = useOrpc();
   const router = useRouter();
 
@@ -29,20 +28,16 @@ export function SignUpForm({ dict }: { dict: Dictionary }) {
     resolver: zodResolver(
       z
         .object({
-          email: z.string().email(dict.pages.auth.signUp.form.email.required),
-          firstName: z
-            .string()
-            .min(2, dict.pages.auth.signUp.form.firstName.required),
+          email: z.string().email("Email inválido"),
+          firstName: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
           lastName: z
             .string()
-            .min(2, dict.pages.auth.signUp.form.lastName.required),
-          password: z
-            .string()
-            .min(5, dict.pages.auth.signUp.form.password.required),
+            .min(2, "Sobrenome deve ter pelo menos 2 caracteres"),
+          password: z.string().min(5, "Senha deve ter pelo menos 5 caracteres"),
           confirmPassword: z.string(),
         })
         .refine((data) => data.password === data.confirmPassword, {
-          message: dict.pages.auth.signUp.form.confirmPassword.required,
+          message: "As senhas não coincidem",
           path: ["confirmPassword"],
         }),
     ),
@@ -69,17 +64,6 @@ export function SignUpForm({ dict }: { dict: Dictionary }) {
     }),
   );
 
-  const { mutate: googleLogin } = useMutation(
-    orpc.auth.getGoogleAuthUrl.mutationOptions({
-      onSuccess: (data) => {
-        window.location.href = data.url;
-      },
-      onError: (error) => {
-        console.error("Google auth URL error:", error);
-      },
-    }),
-  );
-
   return (
     <>
       <Form {...form}>
@@ -99,17 +83,9 @@ export function SignUpForm({ dict }: { dict: Dictionary }) {
             name="firstName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  {dict.pages.auth.signUp.form.firstName.label}
-                </FormLabel>
+                <FormLabel>Nome</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder={
-                      dict.pages.auth.signUp.form.firstName.placeholder
-                    }
-                    className="h-11"
-                    {...field}
-                  />
+                  <Input placeholder="Seu nome" className="h-11" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -120,14 +96,10 @@ export function SignUpForm({ dict }: { dict: Dictionary }) {
             name="lastName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  {dict.pages.auth.signUp.form.lastName.label}
-                </FormLabel>
+                <FormLabel>Sobrenome</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder={
-                      dict.pages.auth.signUp.form.lastName.placeholder
-                    }
+                    placeholder="Seu sobrenome"
                     className="h-11"
                     {...field}
                   />
@@ -141,11 +113,11 @@ export function SignUpForm({ dict }: { dict: Dictionary }) {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{dict.pages.auth.signUp.form.email.label}</FormLabel>
+                <FormLabel>Email</FormLabel>
                 <FormControl>
                   <Input
                     type="email"
-                    placeholder={dict.pages.auth.signUp.form.email.placeholder}
+                    placeholder="seu@email.com"
                     className="h-11"
                     {...field}
                   />
@@ -159,15 +131,11 @@ export function SignUpForm({ dict }: { dict: Dictionary }) {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  {dict.pages.auth.signUp.form.password.label}
-                </FormLabel>
+                <FormLabel>Senha</FormLabel>
                 <FormControl>
                   <Input
                     type="password"
-                    placeholder={
-                      dict.pages.auth.signUp.form.password.placeholder
-                    }
+                    placeholder="••••••••"
                     className="h-11"
                     {...field}
                   />
@@ -181,15 +149,11 @@ export function SignUpForm({ dict }: { dict: Dictionary }) {
             name="confirmPassword"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  {dict.pages.auth.signUp.form.confirmPassword.label}
-                </FormLabel>
+                <FormLabel>Confirmar senha</FormLabel>
                 <FormControl>
                   <Input
                     type="password"
-                    placeholder={
-                      dict.pages.auth.signUp.form.confirmPassword.placeholder
-                    }
+                    placeholder="••••••••"
                     className="h-11"
                     {...field}
                   />
@@ -206,10 +170,10 @@ export function SignUpForm({ dict }: { dict: Dictionary }) {
             {isPending ? (
               <>
                 <div className="animate-spin rounded-full h-4 w-4 border-2 border-primary border-t-transparent mr-2" />
-                {dict.pages.auth.signUp.form.creatingAccount}
+                Criando conta...
               </>
             ) : (
-              dict.pages.auth.signUp.form.createAccount
+              "Criar conta"
             )}
           </Button>
         </form>
@@ -217,42 +181,15 @@ export function SignUpForm({ dict }: { dict: Dictionary }) {
 
       <div className="mt-6 text-center">
         <p className="text-sm text-muted-foreground">
-          {dict.pages.auth.signUp.form.hasAccount}{" "}
+          Já tem uma conta?{" "}
           <button
             type="button"
             onClick={() => router.push("/auth/signin")}
             className="text-primary hover:text-primary/80 font-medium transition-colors"
           >
-            {dict.pages.auth.signUp.form.signIn}
+            Entrar
           </button>
         </p>
-      </div>
-
-      <div className="mt-6">
-        <div className="relative">
-          <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-border" />
-          </div>
-          <div className="relative flex justify-center text-sm">
-            <span className="bg-card px-2 text-card-foreground">
-              {dict.pages.auth.signUp.form.orContinueWith}
-            </span>
-          </div>
-        </div>
-        <div className="mt-4">
-          <Button
-            variant="outline"
-            className="w-full h-11"
-            onClick={() =>
-              googleLogin({
-                redirectUri: `${window.location.origin}/pt/auth/google/callback`,
-              })
-            }
-          >
-            <FaGoogle />
-            Google
-          </Button>
-        </div>
       </div>
     </>
   );

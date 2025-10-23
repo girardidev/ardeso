@@ -1,5 +1,5 @@
 {
-  "name": "@app/admin",
+  "name": "@app/web",
   "scripts": {
     "dev": "next dev --turbopack --port 3000",
     "build": "next build",
@@ -23,8 +23,8 @@
     "@repo/typescript-config": "workspace:*",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19"
+    "@types/react": "19.0.0",
+    "@types/react-dom": "19.0.0"
   },
   "peerDependencies": {
     "next-themes": "*",

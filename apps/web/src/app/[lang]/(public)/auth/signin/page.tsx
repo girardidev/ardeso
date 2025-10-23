@@ -1,51 +1,47 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@repo/next-ui/components/ui/card";
-import { getDictionary, type ParamsWithLang } from "@/i18n";
-import { SignInForm } from "./_components/sign-in-form";
+import Image from "next/image";
+import Background from "@/assets/background.png";
+import Logo from "@/assets/logo.png";
+import { SignInForm } from "./_components/form";
 
-export default async function SignInPage({
-  params,
-}: {
-  params: ParamsWithLang;
-}) {
-  const { lang } = await params;
-  const dict = await getDictionary(lang);
-
+export default function () {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-4">
-      <div className="w-full max-w-md">
-        <Card>
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl font-semibold text-center">
-              {dict.pages.auth.signIn.title}
-            </CardTitle>
-            <CardDescription className="text-center">
-              {dict.pages.auth.signIn.description}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <SignInForm dict={dict} />
-          </CardContent>
-        </Card>
-
-        <div className="mt-8 text-center text-xs text-muted-foreground">
-          <p>
-            {dict.common.legal.agreement}{" "}
-            <button type="button" className="underline hover:text-primary">
-              {dict.common.legal.termsOfService}
-            </button>{" "}
-            e{" "}
-            <button type="button" className="underline hover:text-primary">
-              {dict.common.legal.privacyPolicy}
-            </button>
-          </p>
-        </div>
-      </div>
+    <div
+      className="min-h-svh bg-cover bg-center bg-no-repeat flex items-center justify-center p-4"
+      style={{ backgroundImage: `url(${Background.src})` }}
+    >
+      <Card className="bg-black border-none px-4 py-6 sm:px-8 sm:py-12 w-full max-w-[800px]">
+        <CardHeader className="space-y-1 px-0">
+          <CardTitle className="text-2xl sm:text-4xl font-bold flex items-end">
+            <Image
+              src={Logo}
+              alt="Logo"
+              width={0}
+              height={0}
+              className="size-8 sm:size-10"
+            />
+            rdeso
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="flex flex-col md:flex-row gap-6 lg:gap-4 px-0">
+          <div className="flex flex-col justify-between min-w-[300px] space-y-4 lg:space-y-0">
+            <h2 className="text-xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary/80 to-primary">
+              Start turning your <br /> ideas into reality
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              Elevate your projects with cutting-edge tools
+              <br /> seamless creativity, and expert <br /> solutions crafted
+              for professionals.
+            </p>
+          </div>
+          <SignInForm />
+        </CardContent>
+      </Card>
     </div>
   );
 }

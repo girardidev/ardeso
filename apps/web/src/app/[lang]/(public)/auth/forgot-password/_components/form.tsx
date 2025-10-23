@@ -16,12 +16,11 @@ import { toast } from "@repo/next-ui/lib/toast";
 import { useMutation } from "@tanstack/react-query";
 import { CheckCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { type ReactNode, useState } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
-import type { Dictionary } from "@/i18n";
 
-export function ForgotPasswordForm({ dict }: { dict: Dictionary }) {
+export function ForgotPasswordForm(): ReactNode {
   const orpc = useOrpc();
   const router = useRouter();
   const [isSuccess, setIsSuccess] = useState(false);
@@ -29,9 +28,7 @@ export function ForgotPasswordForm({ dict }: { dict: Dictionary }) {
   const form = useForm({
     resolver: zodResolver(
       z.object({
-        email: z
-          .string()
-          .email(dict.pages.auth.forgotPassword.form.email.required),
+        email: z.email("Email inválido"),
       }),
     ),
     defaultValues: {
@@ -57,14 +54,15 @@ export function ForgotPasswordForm({ dict }: { dict: Dictionary }) {
         <CheckCircle className="h-16 w-16 text-green-500 mx-auto" />
         <div>
           <h3 className="text-lg font-semibold text-foreground">
-            {dict.pages.auth.forgotPassword.success.title}
+            Email enviado!
           </h3>
           <p className="text-sm text-muted-foreground mt-2">
-            {dict.pages.auth.forgotPassword.success.description}
+            Verifique sua caixa de entrada e siga as instruções para redefinir
+            sua senha.
           </p>
         </div>
         <Button onClick={() => router.push("/auth/signin")} className="w-full">
-          {dict.pages.auth.forgotPassword.success.backToLogin}
+          Voltar ao login
         </Button>
       </div>
     );
@@ -86,15 +84,11 @@ export function ForgotPasswordForm({ dict }: { dict: Dictionary }) {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>
-                {dict.pages.auth.forgotPassword.form.email.label}
-              </FormLabel>
+              <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input
                   type="email"
-                  placeholder={
-                    dict.pages.auth.forgotPassword.form.email.placeholder
-                  }
+                  placeholder="seu@email.com"
                   className="h-11"
                   {...field}
                 />
@@ -111,10 +105,10 @@ export function ForgotPasswordForm({ dict }: { dict: Dictionary }) {
           {isPending ? (
             <>
               <div className="animate-spin rounded-full h-4 w-4 border-2 border-primary border-t-transparent mr-2" />
-              {dict.pages.auth.forgotPassword.form.sending}
+              Enviando...
             </>
           ) : (
-            dict.pages.auth.forgotPassword.form.sendInstructions
+            "Enviar instruções"
           )}
         </Button>
       </form>
