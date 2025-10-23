@@ -1,6 +1,7 @@
 "use client";
 
 import Logo from "@/assets/logo.png";
+import { useUser } from "@/components/user-provider";
 import type { Dictionary } from "@/i18n";
 import { deleteAuthCookies } from "@repo/next-auth/actions/cookie";
 import {
@@ -27,9 +28,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@repo/next-ui/components/ui/dropdown-menu";
-import { ChevronDown, Folder, Hammer, Home, Users } from "lucide-react";
+import { cn } from "@repo/next-ui/lib/utils";
+import { ChevronDown, Folder, Hammer, Home, Loader2Icon, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 interface DashboardHeaderProps {
@@ -37,6 +40,8 @@ interface DashboardHeaderProps {
 }
 
 export function Navbar({ dict }: DashboardHeaderProps) {
+  const user = useUser();
+
   const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
 
   async function handleSignOut() {
@@ -122,7 +127,7 @@ export function Navbar({ dict }: DashboardHeaderProps) {
             <Button
               variant="ghost"
               size="sm"
-              className="gap-1.5 text-muted-foreground hover:text-foreground hover:bg-accent h-8 text-xs font-normal px-3"
+              className={cn("gap-1.5 text-muted-foreground hover:text-foreground hover:bg-accent h-8 text-xs font-normal px-3")}
             >
               <Folder className="w-3.5 h-3.5" />
               {dict.pages.dashboard.header.projects}
@@ -142,12 +147,14 @@ export function Navbar({ dict }: DashboardHeaderProps) {
                   variant="ghost"
                   className="relative h-8 w-8 rounded-full"
                 >
-                  <Avatar className="h-8 w-8">
+                  <Avatar className="size-6">
+                    {user?.avatar && (
                     <AvatarImage
-                      src="https://github.com/shadcn.png"
+                      src={user?.avatar}
                       alt="Admin"
-                    />
-                    <AvatarFallback>AD</AvatarFallback>
+                    />  
+                    )}
+                    <AvatarFallback>{user ? `${user?.firstName?.charAt(0)}${user?.lastName?.charAt(0)}` : <Loader2Icon className="size-4 animate-spin" />}</AvatarFallback>
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
@@ -155,10 +162,10 @@ export function Navbar({ dict }: DashboardHeaderProps) {
                 <DropdownMenuLabel className="font-normal">
                   <div className="flex flex-col space-y-1">
                     <p className="text-sm font-medium leading-none">
-                      Admin User
+                      {user?.fullName}
                     </p>
                     <p className="text-xs leading-none text-muted-foreground">
-                      admin@example.com
+                      {user?.email}
                     </p>
                   </div>
                 </DropdownMenuLabel>
