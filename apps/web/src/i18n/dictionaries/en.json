@@ -1,0 +1,185 @@
+{
+  "pages": {
+    "dashboard": {
+      "title": "Dashboard",
+      "description": "Welcome to your control panel"
+    },
+    "users": {
+      "title": "Users",
+      "description": "Manage user accounts and permissions",
+      "stats": {
+        "totalUsers": {
+          "title": "Total Users",
+          "description": "+2 from last month"
+        },
+        "activeUsers": {
+          "title": "Active Users",
+          "description": "% of total"
+        },
+        "pendingUsers": {
+          "title": "Pending Users",
+          "description": "Waiting for approval"
+        },
+        "newThisMonth": {
+          "title": "New This Month",
+          "description": "+50% from last month"
+        }
+      },
+      "table": {
+        "allUsers": "All Users",
+        "allUsersDescription": "A list of all users in your system",
+        "headers": {
+          "user": "User",
+          "role": "Role",
+          "status": "Status",
+          "lastActive": "Last Active",
+          "joinDate": "Join Date",
+          "actions": "Actions"
+        },
+        "search": {
+          "placeholder": "Search users..."
+        },
+        "actions": {
+          "sendEmail": "Send email",
+          "callUser": "Call user",
+          "editUser": "Edit user",
+          "viewProfile": "View profile",
+          "deleteUser": "Delete user"
+        },
+        "buttons": {
+          "export": "Export",
+          "addUser": "Add User",
+          "filter": "Filter"
+        }
+      }
+    },
+    "auth": {
+      "signIn": {
+        "title": "Welcome back",
+        "description": "Sign in to your account to continue",
+        "heroTitle": "Start turning your ideas into reality",
+        "heroDescription": "Elevate your projects with cutting-edge tools, seamless creativity, and expert solutions crafted for professionals.",
+        "form": {
+          "email": {
+            "label": "Email address",
+            "placeholder": "your@email.com",
+            "required": "Email is required"
+          },
+          "password": {
+            "label": "Password",
+            "placeholder": "••••••••",
+            "required": "Password is required"
+          },
+          "rememberMe": "Remember me",
+          "forgotPassword": "Forgot password?",
+          "signIn": "Login",
+          "signingIn": "Logging in...",
+          "noAccount": "Don't have an account?",
+          "createAccount": "Create account",
+          "orContinueWith": "Or continue with"
+        }
+      },
+      "signUp": {
+        "title": "Create account",
+        "description": "Join us and start your journey",
+        "form": {
+          "firstName": {
+            "label": "First name",
+            "placeholder": "Your first name",
+            "required": "First name must be at least 2 characters"
+          },
+          "lastName": {
+            "label": "Last name",
+            "placeholder": "Your last name",
+            "required": "Last name must be at least 2 characters"
+          },
+          "email": {
+            "label": "Email",
+            "placeholder": "your@email.com",
+            "required": "Invalid email"
+          },
+          "password": {
+            "label": "Password",
+            "placeholder": "••••••••",
+            "required": "Password must be at least 5 characters"
+          },
+          "confirmPassword": {
+            "label": "Confirm password",
+            "placeholder": "••••••••",
+            "required": "Passwords don't match"
+          },
+          "createAccount": "Create account",
+          "creatingAccount": "Creating account...",
+          "hasAccount": "Already have an account?",
+          "signIn": "Sign in",
+          "orContinueWith": "Or continue with"
+        }
+      },
+      "forgotPassword": {
+        "title": "Forgot password?",
+        "description": "Enter your email to receive recovery instructions",
+        "form": {
+          "email": {
+            "label": "Email",
+            "placeholder": "your@email.com",
+            "required": "Email is required"
+          },
+          "sendInstructions": "Send instructions",
+          "sending": "Sending...",
+          "rememberAccount": "Remember your account?",
+          "signIn": "Sign in",
+          "or": "or",
+          "createAccount": "create account"
+        },
+        "success": {
+          "title": "Email sent!",
+          "description": "Check your inbox and follow the instructions to reset your password.",
+          "backToLogin": "Back to login"
+        }
+      }
+    }
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "users": "Users",
+    "reports": "Reports",
+    "settings": "Settings",
+    "profile": "Profile",
+    "support": "Support",
+    "logout": "Logout",
+    "logoutDialog": {
+      "title": "Confirm logout",
+      "description": "Are you sure you want to log out of your account?",
+      "confirm": "Logout",
+      "cancel": "Cancel"
+    },
+    "search": {
+      "placeholder": "Search..."
+    },
+    "notifications": "Notifications"
+  },
+  "common": {
+    "actions": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "edit": "Edit",
+      "view": "View"
+    },
+    "status": {
+      "active": "active",
+      "inactive": "inactive",
+      "pending": "pending"
+    },
+    "roles": {
+      "admin": "administrator",
+      "moderator": "moderator",
+      "user": "user"
+    },
+    "legal": {
+      "termsOfService": "Terms of Service",
+      "privacyPolicy": "Privacy Policy",
+      "agreement": "By continuing, you agree to our"
+    }
+  }
+}

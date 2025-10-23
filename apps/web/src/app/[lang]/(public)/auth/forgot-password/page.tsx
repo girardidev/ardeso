@@ -7,42 +7,50 @@ import {
   CardTitle,
 } from "@repo/next-ui/components/ui/card";
 import Link from "next/link";
+import { getDictionary, type ParamsWithLang } from "@/i18n";
 import { ForgotPasswordForm } from "./_components/form";
 
-export default function () {
+export default async function ForgotPasswordPage({
+  params,
+}: {
+  params: ParamsWithLang;
+}) {
+  const { lang } = await params;
+  const dict = await getDictionary(lang);
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <div className="w-full max-w-md">
         <Card>
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-semibold text-center">
-              Esqueceu a senha?
+              {dict.pages.auth.forgotPassword.title}
             </CardTitle>
             <CardDescription className="text-center">
-              Digite seu email para receber instruções de recuperação
+              {dict.pages.auth.forgotPassword.description}
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <ForgotPasswordForm />
+            <ForgotPasswordForm dict={dict} />
           </CardContent>
           <CardFooter>
             <div className="w-full flex flex-col items-center gap-2 text-sm">
               <span className="text-muted-foreground">
-                Lembra da sua conta?
+                {dict.pages.auth.forgotPassword.form.rememberAccount}
               </span>
               <div className="flex gap-2">
                 <Link
-                  href="/auth/signin"
+                  href={`/${lang}/auth/signin`}
                   className="underline hover:text-primary transition-colors"
                 >
-                  Entrar
+                  {dict.pages.auth.forgotPassword.form.signIn}
                 </Link>
-                <span>ou então</span>
+                <span>{dict.pages.auth.forgotPassword.form.or}</span>
                 <Link
-                  href="/auth/signup"
+                  href={`/${lang}/auth/signup`}
                   className="underline hover:text-primary transition-colors"
                 >
-                  criar conta
+                  {dict.pages.auth.forgotPassword.form.createAccount}
                 </Link>
               </div>
             </div>

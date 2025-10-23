@@ -55,5 +55,11 @@
     "@types/pg": "^8.15.5",
     "tsx": "^4.7.1",
     "typescript": "^5.9.2"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-dom": "*",
+    "@types/react": "*",
+    "@types/react-dom": "*"
   }
 }

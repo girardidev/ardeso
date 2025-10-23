@@ -19,11 +19,12 @@ import { toast } from "@repo/next-ui/lib/toast";
 import { useMutation } from "@tanstack/react-query";
 import { ChevronRightCircleIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { type ReactNode, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
+import type { Dictionary } from "@/i18n";
 
-export function SignInForm(): ReactNode {
+export function SignInForm({ dict }: { dict: Dictionary }) {
   const orpc = useOrpc();
   const router = useRouter();
 
@@ -31,8 +32,10 @@ export function SignInForm(): ReactNode {
   const form = useForm({
     resolver: zodResolver(
       z.object({
-        email: z.email(),
-        password: z.string().min(5),
+        email: z.string().email(dict.pages.auth.signIn.form.email.required),
+        password: z
+          .string()
+          .min(5, dict.pages.auth.signIn.form.password.required),
       }),
     ),
     defaultValues: {
@@ -48,7 +51,7 @@ export function SignInForm(): ReactNode {
       },
       onError: (error) => {
         if (error.message === "NEXT_REDIRECT") {
-          return toast.success("Login successful");
+          return toast.success(dict.pages.auth.signIn.title);
         }
         toast.error(`${error.message}`);
         console.log(error);
@@ -65,14 +68,13 @@ export function SignInForm(): ReactNode {
         <FormField
           control={form.control}
           name="email"
-          rules={{ required: "Email is required" }}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email address</FormLabel>
+              <FormLabel>{dict.pages.auth.signIn.form.email.label}</FormLabel>
               <FormControl>
                 <Input
                   type="email"
-                  placeholder="your@email.com"
+                  placeholder={dict.pages.auth.signIn.form.email.placeholder}
                   className="h-11"
                   {...field}
                 />
@@ -84,24 +86,25 @@ export function SignInForm(): ReactNode {
         <FormField
           control={form.control}
           name="password"
-          rules={{ required: "Password is required" }}
           render={({ field }) => (
             <FormItem>
               <div className="flex items-center justify-between">
-                <FormLabel>Password</FormLabel>
+                <FormLabel>
+                  {dict.pages.auth.signIn.form.password.label}
+                </FormLabel>
 
                 <button
                   type="button"
                   onClick={() => router.push("/auth/forgot-password")}
                   className="text-sm text-primary hover:text-primary/80 transition-colors"
                 >
-                  Forgot password?
+                  {dict.pages.auth.signIn.form.forgotPassword}
                 </button>
               </div>
               <FormControl>
                 <Input
                   type="password"
-                  placeholder="••••••••"
+                  placeholder={dict.pages.auth.signIn.form.password.placeholder}
                   className="h-11"
                   {...field}
                 />
@@ -116,7 +119,7 @@ export function SignInForm(): ReactNode {
               <div className="flex items-center space-x-2">
                 <Switch name="remember" />
                 <Label htmlFor="remember" className="text-sm">
-                  Remember me
+                  {dict.pages.auth.signIn.form.rememberMe}
                 </Label>
               </div>
 
@@ -140,10 +143,10 @@ export function SignInForm(): ReactNode {
               {isLoading ? (
                 <>
                   <div className="animate-spin rounded-full h-4 w-4 border-2 border-primary border-t-transparent mr-2" />
-                  Login...
+                  {dict.pages.auth.signIn.form.signingIn}
                 </>
               ) : (
-                "Login"
+                dict.pages.auth.signIn.form.signIn
               )}
               <ChevronRightCircleIcon />
             </Button>

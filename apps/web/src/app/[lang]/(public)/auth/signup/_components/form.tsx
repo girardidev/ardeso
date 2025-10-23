@@ -16,11 +16,11 @@ import { Input } from "@repo/next-ui/components/ui/input";
 import { toast } from "@repo/next-ui/lib/toast";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { type ReactNode } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import type { Dictionary } from "@/i18n";
 
-export function SignUpForm(): ReactNode {
+export function SignUpForm({ dict }: { dict: Dictionary }) {
   const orpc = useOrpc();
   const router = useRouter();
 
@@ -28,16 +28,20 @@ export function SignUpForm(): ReactNode {
     resolver: zodResolver(
       z
         .object({
-          email: z.string().email("Email inválido"),
-          firstName: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
+          email: z.email(dict.pages.auth.signUp.form.email.required),
+          firstName: z
+            .string()
+            .min(2, dict.pages.auth.signUp.form.firstName.required),
           lastName: z
             .string()
-            .min(2, "Sobrenome deve ter pelo menos 2 caracteres"),
-          password: z.string().min(5, "Senha deve ter pelo menos 5 caracteres"),
+            .min(2, dict.pages.auth.signUp.form.lastName.required),
+          password: z
+            .string()
+            .min(5, dict.pages.auth.signUp.form.password.required),
           confirmPassword: z.string(),
         })
         .refine((data) => data.password === data.confirmPassword, {
-          message: "As senhas não coincidem",
+          message: dict.pages.auth.signUp.form.confirmPassword.required,
           path: ["confirmPassword"],
         }),
     ),
@@ -54,7 +58,7 @@ export function SignUpForm(): ReactNode {
     orpc.auth.signUp.mutationOptions({
       onSuccess: async (data) => {
         await setAuthCookies(data.token, data.refreshToken, "/app");
-        toast.success("Conta criada com sucesso");
+        toast.success(dict.pages.auth.signUp.title);
         router.push("/app");
       },
       onError: (error) => {
@@ -83,9 +87,17 @@ export function SignUpForm(): ReactNode {
             name="firstName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Nome</FormLabel>
+                <FormLabel>
+                  {dict.pages.auth.signUp.form.firstName.label}
+                </FormLabel>
                 <FormControl>
-                  <Input placeholder="Seu nome" className="h-11" {...field} />
+                  <Input
+                    placeholder={
+                      dict.pages.auth.signUp.form.firstName.placeholder
+                    }
+                    className="h-11"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -96,10 +108,14 @@ export function SignUpForm(): ReactNode {
             name="lastName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Sobrenome</FormLabel>
+                <FormLabel>
+                  {dict.pages.auth.signUp.form.lastName.label}
+                </FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Seu sobrenome"
+                    placeholder={
+                      dict.pages.auth.signUp.form.lastName.placeholder
+                    }
                     className="h-11"
                     {...field}
                   />
@@ -113,11 +129,11 @@ export function SignUpForm(): ReactNode {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>{dict.pages.auth.signUp.form.email.label}</FormLabel>
                 <FormControl>
                   <Input
                     type="email"
-                    placeholder="seu@email.com"
+                    placeholder={dict.pages.auth.signUp.form.email.placeholder}
                     className="h-11"
                     {...field}
                   />
@@ -131,11 +147,15 @@ export function SignUpForm(): ReactNode {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Senha</FormLabel>
+                <FormLabel>
+                  {dict.pages.auth.signUp.form.password.label}
+                </FormLabel>
                 <FormControl>
                   <Input
                     type="password"
-                    placeholder="••••••••"
+                    placeholder={
+                      dict.pages.auth.signUp.form.password.placeholder
+                    }
                     className="h-11"
                     {...field}
                   />
@@ -149,11 +169,15 @@ export function SignUpForm(): ReactNode {
             name="confirmPassword"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Confirmar senha</FormLabel>
+                <FormLabel>
+                  {dict.pages.auth.signUp.form.confirmPassword.label}
+                </FormLabel>
                 <FormControl>
                   <Input
                     type="password"
-                    placeholder="••••••••"
+                    placeholder={
+                      dict.pages.auth.signUp.form.confirmPassword.placeholder
+                    }
                     className="h-11"
                     {...field}
                   />
@@ -170,10 +194,10 @@ export function SignUpForm(): ReactNode {
             {isPending ? (
               <>
                 <div className="animate-spin rounded-full h-4 w-4 border-2 border-primary border-t-transparent mr-2" />
-                Criando conta...
+                {dict.pages.auth.signUp.form.creatingAccount}
               </>
             ) : (
-              "Criar conta"
+              dict.pages.auth.signUp.form.createAccount
             )}
           </Button>
         </form>
@@ -181,13 +205,13 @@ export function SignUpForm(): ReactNode {
 
       <div className="mt-6 text-center">
         <p className="text-sm text-muted-foreground">
-          Já tem uma conta?{" "}
+          {dict.pages.auth.signUp.form.hasAccount}{" "}
           <button
             type="button"
             onClick={() => router.push("/auth/signin")}
             className="text-primary hover:text-primary/80 font-medium transition-colors"
           >
-            Entrar
+            {dict.pages.auth.signUp.form.signIn}
           </button>
         </p>
       </div>

@@ -7,9 +7,17 @@ import {
 import Image from "next/image";
 import Background from "@/assets/background.png";
 import Logo from "@/assets/logo.png";
+import { getDictionary, type ParamsWithLang } from "@/i18n";
 import { SignInForm } from "./_components/form";
 
-export default function () {
+export default async function SignInPage({
+  params,
+}: {
+  params: ParamsWithLang;
+}) {
+  const { lang } = await params;
+  const dict = await getDictionary(lang);
+
   return (
     <div
       className="min-h-svh bg-cover bg-center bg-no-repeat flex items-center justify-center p-4"
@@ -31,15 +39,13 @@ export default function () {
         <CardContent className="flex flex-col md:flex-row gap-6 lg:gap-4 px-0">
           <div className="flex flex-col justify-between min-w-[300px] space-y-4 lg:space-y-0">
             <h2 className="text-xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary/80 to-primary">
-              Start turning your <br /> ideas into reality
+              {dict.pages.auth.signIn.heroTitle}
             </h2>
             <p className="text-sm text-muted-foreground">
-              Elevate your projects with cutting-edge tools
-              <br /> seamless creativity, and expert <br /> solutions crafted
-              for professionals.
+              {dict.pages.auth.signIn.heroDescription}
             </p>
           </div>
-          <SignInForm />
+          <SignInForm dict={dict} />
         </CardContent>
       </Card>
     </div>

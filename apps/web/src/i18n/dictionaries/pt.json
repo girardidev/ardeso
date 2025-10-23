@@ -57,6 +57,8 @@
       "signIn": {
         "title": "Bem-vindo de volta",
         "description": "Entre na sua conta para continuar",
+        "heroTitle": "Comece a transformar suas ideias em realidade",
+        "heroDescription": "Eleva seus projetos com ferramentas de ponta, criatividade perfeita e soluções especializadas criadas para profissionais.",
         "form": {
           "email": {
             "label": "Email",
