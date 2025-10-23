@@ -2,7 +2,29 @@
   "pages": {
     "dashboard": {
       "title": "Dashboard",
-      "description": "Bem-vindo ao seu painel de controle"
+      "description": "Bem-vindo ao seu painel de controle",
+      "actions": {
+        "newProject": "Novo Projeto",
+        "newFolder": "Nova Pasta",
+        "importProjectFile": "Importar arquivo de projeto",
+        "syncProjects": "Sincronizar projetos"
+      },
+      "sections": {
+        "folders": {
+          "title": "Pastas",
+          "loading": "Carregando pastas..."
+        },
+        "projects": {
+          "title": "Projetos",
+          "loading": "Carregando projetos..."
+        }
+      },
+      "header": {
+        "selectCompany": "Selecionar Empresa",
+        "selectTeam": "Selecionar Equipe",
+        "projects": "Projetos",
+        "builds": "Builds"
+      }
     },
     "users": {
       "title": "Usuários",

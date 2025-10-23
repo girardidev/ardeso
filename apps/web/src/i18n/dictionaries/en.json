@@ -2,7 +2,29 @@
   "pages": {
     "dashboard": {
       "title": "Dashboard",
-      "description": "Welcome to your control panel"
+      "description": "Welcome to your control panel",
+      "actions": {
+        "newProject": "New Project",
+        "newFolder": "New Folder",
+        "importProjectFile": "Import project file",
+        "syncProjects": "Sync projects"
+      },
+      "sections": {
+        "folders": {
+          "title": "Folders",
+          "loading": "Loading folders..."
+        },
+        "projects": {
+          "title": "Projects",
+          "loading": "Loading projects..."
+        }
+      },
+      "header": {
+        "selectCompany": "Select Company",
+        "selectTeam": "Select Team",
+        "projects": "Projects",
+        "builds": "Builds"
+      }
     },
     "users": {
       "title": "Users",

@@ -1,6 +1,5 @@
 "use client";
 
-import type { getDictionary } from "@/i18n";
 import { deleteAuthCookies } from "@repo/next-auth/actions/cookie";
 import {
   AlertDialog,
@@ -29,6 +28,7 @@ import {
 import { Input } from "@repo/next-ui/components/ui/input";
 import { Bell, Search } from "lucide-react";
 import { useState } from "react";
+import type { getDictionary } from "@/i18n";
 
 interface NavbarProps {
   lang: string;
