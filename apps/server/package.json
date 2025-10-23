@@ -1,0 +1,59 @@
+{
+  "name": "@app/server",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "node dist/server.js",
+    "watch": "tsup --watch",
+    "build": "tsup && node dist/generate-contract.js",
+    "check-types": "tsc --noEmit",
+    "schema": "dotenv -- npm --prefix ./node_modules/@core/schemas run",
+    "schema:push": "npm run schema schema:push",
+    "schema:seed:dev": "npm run schema seed:dev",
+    "schema:seed:prod": "npm run schema seed:prod",
+    "schema:generate": "npm run schema schema:generate",
+    "schema:migrate": "npm run schema schema:migrate:prod"
+  },
+  "exports": {
+    "./contract": {
+      "default": "./dist/contract.json"
+    },
+    "./router": {
+      "types": "./dist/server-router.d.ts",
+      "default": "./dist/server-router.js"
+    }
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.913.0",
+    "@aws-sdk/s3-request-presigner": "^3.913.0",
+    "@core/emails": "workspace:*",
+    "@core/schemas": "workspace:*",
+    "@hono/node-server": "^1.19.1",
+    "@orpc/client": "^1.8.6",
+    "@orpc/contract": "^1.8.6",
+    "@orpc/openapi": "^1.8.6",
+    "@orpc/server": "^1.8.6",
+    "@orpc/zod": "^1.8.6",
+    "@repo/cookie": "workspace:*",
+    "@repo/service-email": "workspace:*",
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.2.3",
+    "dotenv-cli": "^10.0.0",
+    "drizzle-orm": "^0.44.5",
+    "drizzle-zod": "^0.8.3",
+    "google-auth-library": "^10.3.1",
+    "hono": "^4.9.6",
+    "jsonwebtoken": "^9.0.2",
+    "ws": "^8.18.3",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/bcrypt": "^6.0.0",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/pg": "^8.15.5",
+    "tsx": "^4.7.1",
+    "typescript": "^5.9.2"
+  }
+}

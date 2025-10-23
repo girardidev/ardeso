@@ -1,0 +1,15 @@
+packages:
+  - apps/*
+  - packages/*
+  - core/*
+
+injectWorkspacePackages: true
+
+onlyBuiltDependencies:
+  - '@tailwindcss/oxide'
+  - bcrypt
+  - esbuild
+  - sharp
+
+syncInjectedDepsAfterScripts:
+  - build

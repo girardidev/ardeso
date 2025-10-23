@@ -1,0 +1,184 @@
+---
+alwaysApply: false
+globs: apps/server/**
+description: "Defines the architecture and organization of the server application structure. Essential for understanding the server's clean architecture, ORPC integration, and code organization patterns."
+---
+
+# Server Application Architecture
+
+This rule defines the architecture and code organization patterns for the server application, built with Hono and ORPC following Clean Architecture principles.
+
+## Application Overview
+
+The server is a Hono-based API server using ORPC (OpenRPC) for type-safe APIs. It follows Clean Architecture with clear separation of concerns across multiple layers.
+
+## Directory Structure
+
+### Root Level (`apps/server/`)
+
+#### **Configuration Layer (`src/config/`)**
+Centralized configuration management for all application settings:
+- **`env.config.ts`**: Environment variables validation and loading
+- **`server.config.ts`**: Server-specific settings (port, CORS, logging)
+- **`jwt.config.ts`**: JWT token configuration
+- **`google.config.ts`**: Google OAuth integration settings
+- **`s3.config.ts`**: AWS S3 storage configuration
+- **`code.config.ts`**: Authentication codes settings
+- **`validation.config.ts`**: Input validation rules
+
+#### **Core Layer (`src/core/`)**
+Business logic layer containing domain entities, services, and interfaces:
+
+**Entities (`entities/`)**:
+- Domain models and business rules
+- Type definitions for core business objects
+- Schema definitions using Drizzle ORM
+
+**Services (`services/`)**:
+- Business logic implementation
+- Domain service classes (AuthService, StorageService, etc.)
+- Orchestration of business operations
+
+**Repositories (`repositories/`)**:
+- Abstract data access interfaces
+- Domain-specific query definitions
+
+**External APIs (`external-apis/`)**:
+- Interfaces for third-party service integrations
+- Abstract definitions for Google Auth, S3, etc.
+
+#### **Infrastructure Layer (`src/infrastructure/`)**
+Concrete implementations of core interfaces:
+
+**Dependency Injection (`di/`)**:
+- Factory functions for service instantiation
+- Singleton pattern implementation for shared services
+- Dependency resolution and wiring
+
+**External APIs (`external-apis/`)**:
+- Concrete implementations of third-party services
+- GoogleAuthService implementation, S3Service implementation
+
+**Repositories (`repositories/drizzle/`)**:
+- Database-specific repository implementations
+- Drizzle ORM query implementations
+
+#### **ORPC Layer (`src/orpc/`)**
+API presentation layer using ORPC for type-safe REST APIs:
+
+**Context (`context.ts`)**:
+- ORPC context definition with DI container and headers
+- Base context setup for all routes
+
+**Routes (`routes/`)**:
+- Route definitions organized by domain
+- Lazy-loaded route handlers for performance
+- RESTful endpoint organization
+
+**Middlewares (`middlewares/`)**:
+- Authentication middleware
+- Request/response interceptors
+- Cross-cutting concerns
+
+#### **Shared Layer (`src/shared/`)**
+Common utilities and cross-cutting concerns:
+
+**Types (`types/`)**:
+- Shared type definitions
+- API response types
+
+**Utils (`utils/`)**:
+- JWT service implementation
+- Password hashing utilities
+- Error handling helpers
+- Database connection utilities
+
+## Architecture Patterns
+
+### Clean Architecture Layers
+
+1. **Presentation Layer (ORPC Routes)**
+   - HTTP request/response handling
+   - Input validation and serialization
+   - Route definitions and middleware
+
+2. **Application Layer (Core Services)**
+   - Business logic orchestration
+   - Use case implementation
+   - Domain service coordination
+
+3. **Domain Layer (Core Entities & Repositories)**
+   - Business entities and rules
+   - Repository interfaces
+   - Domain models
+
+4. **Infrastructure Layer**
+   - External service implementations
+   - Database implementations
+   - Framework-specific code
+
+### Dependency Injection Pattern
+
+- **Factory Functions**: Each service has a dedicated factory function in `infrastructure/di/`
+- **Singleton Pattern**: Services are cached and reused across requests
+- **Dependency Resolution**: Dependencies are resolved at runtime through the DI container
+
+### ORPC Integration
+
+- **Type Safety**: Full type safety between client and server
+- **Contract Generation**: Automatic OpenAPI contract generation
+- **Lazy Loading**: Route handlers are lazy-loaded for better performance
+- **Middleware Support**: Authentication and error handling middleware
+
+## Code Organization Rules
+
+### File Naming Conventions
+
+- **Routes**: `{domain}-{action}.route.ts` (e.g., `auth-signin.route.ts`)
+- **Services**: `{domain}.service.ts` (e.g., `auth.service.ts`)
+- **Repositories**: `{domain}.repository.ts` (interface), `{domain}.repository.impl.ts` (implementation)
+- **DI Factories**: `di-{service-name}.ts` (e.g., `di-auth-service.ts`)
+- **Entities**: `{domain}.entity.ts`
+- **Config**: `{domain}.config.ts`
+
+### Import Aliases
+
+- `@/config`: Configuration layer
+- `@/core`: Business logic layer
+- `@/infrastructure`: Infrastructure implementations
+- `@/orpc`: API presentation layer
+- `@/shared`: Shared utilities
+
+### Route Organization
+
+Routes are organized hierarchically:
+```
+routes/
+├── auth/
+│   ├── auth.route.ts (router aggregation)
+│   ├── auth-signin.route.ts
+│   └── auth-signup.route.ts
+├── users/
+│   └── users.route.ts
+└── index.ts (main router export)
+```
+
+## Development Workflow
+
+### Adding New Features
+
+1. **Define Entity**: Create domain entity in `core/entities/`
+2. **Create Repository Interface**: Define data access contract in `core/repositories/`
+3. **Implement Repository**: Create Drizzle implementation in `infrastructure/repositories/drizzle/`
+4. **Create Service**: Implement business logic in `core/services/`
+5. **Setup DI**: Create factory function in `infrastructure/di/`
+6. **Create Route**: Define ORPC route in `orpc/routes/`
+7. **Update Router**: Add route to domain router
+
+### Configuration Management
+
+- All configuration is centralized in `src/config/`
+- Environment variables are validated using Zod schemas
+- Configuration is imported through the DI context in routes
+
+This architecture ensures maintainability, testability, and clear separation of concerns while leveraging ORPC for type-safe API development.

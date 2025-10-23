@@ -1,0 +1,4 @@
+@import "@repo/next-ui/styles.css";
+
+@source "../app/";
+@source "../components/";

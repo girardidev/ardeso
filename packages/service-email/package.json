@@ -1,0 +1,26 @@
+{
+  "name": "@repo/service-email",
+  "version": "1.0.0",
+  "scripts": {
+    "watch": "tsup --watch",
+    "build": "tsup",
+    "check-types": "tsc --noEmit"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "dependencies": {
+    "resend": "^6.1.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*"
+  },
+  "peerDependencies": {
+    "zod": "*",
+    "@types/react": "*",
+    "react": "*"
+  }
+}

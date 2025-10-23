@@ -1,0 +1,23 @@
+FROM node:22-alpine AS base
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+WORKDIR /usr/src/app
+
+
+FROM base AS build
+RUN corepack enable
+COPY . .
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+RUN pnpm run -r build:server
+RUN pnpm deploy --prod --filter=@app/server /prod/server
+
+
+FROM base AS server
+WORKDIR /prod/server
+COPY --from=build /prod/server .
+
+ENV NODE_ENV=production
+EXPOSE 3333
+RUN chmod +x ./scripts/entrypoint.sh
+ENTRYPOINT [ "sh", "./scripts/entrypoint.sh" ]
+CMD [ "npm", "run", "start" ]

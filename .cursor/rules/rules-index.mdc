@@ -1,0 +1,50 @@
+---
+alwaysApply: true
+description: Central index of all Cursor Rules with usage descriptions and references
+---
+
+# Cursor Rules Index
+
+This index provides a centralized reference for all Cursor Rules in the project. It lists each rule with a brief description of when and how to use it. This index must be updated whenever new rules are created or existing rules are modified.
+
+## Core Rules
+
+### [rules-guidelines.mdc](mdc:rules-guidelines.mdc)
+**Always Applied:** No (Manual rule)
+**Usage:** Use when creating, modifying, or understanding how to write new Cursor Rules. This rule establishes the fundamental standards and guidelines that all other rules must follow.
+
+### [task-planning.mdc](mdc:task-planning.mdc)
+**Always Applied:** No (Manual rule)
+**Usage:** Guidelines for creating structured task execution plans using temporary PLAN.md files. Use when planning complex multi-step development tasks that require careful sequencing and documentation.
+
+### [rules-consistency-maintenance.mdc](mdc:rules-consistency-maintenance.mdc)
+**Always Applied:** Yes  
+**Usage:** Automatically enforced on all development activities. Ensures all Cursor Rules are consistently followed and regularly maintained to reflect current project standards.
+
+### [project-structure.mdc](mdc:project-structure.mdc)
+**Always Applied:** Yes
+**Usage:** Defines the project structure, organization, and architecture of the Blueprint monorepo. Essential for understanding package relationships and development patterns.
+
+### [server-structure.mdc](mdc:server-structure.mdc)
+**Always Applied:** No
+**Usage:** Defines the architecture and organization of the server application structure. Essential for understanding the server's clean architecture, ORPC integration, and code organization patterns.
+
+### [admin-structure.mdc](mdc:admin-structure.mdc)
+**Always Applied:** No
+**Usage:** Defines the architecture and organization of the admin application structure. Essential for understanding the admin app's Next.js setup, routing patterns, and feature organization.
+
+### [admin-pages-creation.mdc](mdc:admin-pages-creation.mdc)
+**Always Applied:** No
+**Usage:** Guidelines for creating pages in the admin application, including component organization, internationalization, and best practices for server/client components.
+
+### [nextjs-development.mdc](mdc:nextjs-development.mdc)
+**Always Applied:** No
+**Usage:** Next.js development patterns and conventions for apps in the Blueprint monorepo, covering App Router structure, authentication, i18n, ORPC integration, and best practices.
+
+## Maintenance
+
+**Always update this index when:**
+- Creating new rules
+- Modifying existing rules
+- Removing obsolete rules
+- Changing rule descriptions or metadata

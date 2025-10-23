@@ -1,0 +1,19 @@
+{
+  "name": "@repo/next-auth",
+  "scripts": {
+    "check-types": "tsc --noEmit"
+  },
+  "exports": {
+    "./*": "./src/*.ts"
+  },
+  "dependencies": {
+    "@repo/cookie": "workspace:*",
+    "jose": "^6.1.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*"
+  },
+  "peerDependencies": {
+    "next": "*"
+  }
+}

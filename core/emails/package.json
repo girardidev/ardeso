@@ -1,0 +1,34 @@
+{
+  "name": "@core/emails",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "email dev --port 2999",
+    "export": "email export",
+    "watch": "tsup --watch",
+    "build": "tsup",
+    "check-types": "tsc --noEmit"
+  },
+  "exports": {
+    "./*": {
+      "types": "./src/*.ts",
+      "default": "./dist/src/*.js"
+    },
+    "./emails/*": {
+      "types": "./emails/*.tsx",
+      "default": "./dist/emails/*.js"
+    }
+  },
+  "dependencies": {
+    "@react-email/components": "^0.5.3",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@react-email/preview-server": "^4.2.11",
+    "@types/react": "19.0.0",
+    "@types/react-dom": "19.0.0",
+    "react-email": "^4.2.11"
+  }
+}

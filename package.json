@@ -1,0 +1,29 @@
+{
+  "name": "blueprint",
+  "private": true,
+  "scripts": {
+    "dev": "turbo run watch dev",
+    "build:all": "turbo run build",
+    "build:packages": "turbo run build --filter=!@app/admin",
+    "build:admin": "turbo run build --filter=@app/admin...",
+    "build:server": "turbo run build --filter=@app/server...",
+    "schema:push": "cd apps/server && pnpm schema:push",
+    "schema:seed:dev": "cd apps/server && pnpm schema:seed:dev",
+    "schema:generate": "cd apps/server && pnpm schema:generate",
+    "check": "biome check --write",
+    "lint": "biome lint --write",
+    "format": "biome format --write",
+    "check-types": "turbo run check-types"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.2.3",
+    "@types/node": "^22",
+    "tsup": "^8.5.0",
+    "turbo": "^2.5.6",
+    "typescript": "5.9.2"
+  },
+  "packageManager": "pnpm@10.16.1",
+  "engines": {
+    "node": ">=22"
+  }
+}

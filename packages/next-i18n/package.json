@@ -1,0 +1,21 @@
+{
+  "name": "@repo/next-i18n",
+  "scripts": {
+    "check-types": "tsc --noEmit"
+  },
+  "exports": {
+    "./*": "./src/*.ts"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/negotiator": "^0.6.4"
+  },
+  "dependencies": {
+    "@formatjs/intl-localematcher": "^0.6.1",
+    "negotiator": "^1.0.0",
+    "server-only": "^0.0.1"
+  },
+  "peerDependencies": {
+    "next": "*"
+  }
+}

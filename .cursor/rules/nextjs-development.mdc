@@ -1,0 +1,332 @@
+---
+globs: apps/admin/src/**
+description: "Next.js development patterns and conventions for apps in the Blueprint monorepo"
+---
+
+# Next.js Development Guidelines
+
+This rule establishes the development patterns and conventions for Next.js applications in the Blueprint monorepo, ensuring consistency across admin and future Next.js apps.
+
+## Project Structure
+
+### App Router Organization
+
+Follow the App Router structure with internationalization and authentication-based routing:
+
+```
+src/
+├── app/
+│   ├── [lang]/                    # Dynamic language routes
+│   │   ├── (private)/            # Authenticated routes
+│   │   │   ├── _components/      # Shared components for private routes
+│   │   │   ├── app/              # Main app pages
+│   │   │   │   ├── (dashboard)/  # Route groups for organization
+│   │   │   │   └── users/        # Feature-specific pages
+│   │   │   └── layout.tsx        # Private layout with sidebar/navbar
+│   │   └── (public)/             # Public routes (auth pages)
+│   │       └── auth/             # Authentication pages
+│   ├── layout.tsx                # Root layout
+│   ├── providers.tsx             # Global providers
+│   └── favicon.ico
+├── i18n/                         # Internationalization
+│   ├── dictionaries/             # Translation files
+│   └── index.ts                  # i18n utilities
+└── middleware.ts                 # Route middleware
+```
+
+### Component Organization
+
+- **Server Components by default**: Use Server Components unless client-side interactivity is required
+- **Client Components**: Mark with `"use client"` directive and use minimal client-side logic
+- **Component location**: Place in `_components/` subfolders within route segments
+- **Shared components**: Use `@repo/next-ui` package for reusable UI components
+
+## Authentication & Authorization
+
+### Route Protection
+
+Use middleware-based authentication with route groups:
+
+```typescript
+// middleware.ts
+export default async function middleware(request: NextRequest) {
+  const { redirect, locale } = i18nMiddleware(request, locales, "pt");
+
+  if (redirect) return redirect;
+
+  return await authMiddleware({
+    request,
+    authConfig: {
+      redirectWhenNotAuthenticated: `/${locale}/auth/signin`,
+      redirectWhenAuthenticated: `/${locale}/app`,
+    },
+    privateRoutes: [{ path: `/${locale}/app/*` }],
+    publicRoutes: [
+      {
+        path: `/${locale}/auth/*`,
+        whenAuthenticated: "redirect",
+      },
+    ],
+  });
+}
+```
+
+### Cookie Management
+
+Use the `@repo/next-auth` package for secure cookie handling:
+
+```typescript
+// Server Component - Get token
+const token = await getSessionTokenCookie();
+
+// Client Component - Set cookies after login
+await setAuthCookies(data.token, data.refreshToken, "/app");
+```
+
+## Internationalization (i18n)
+
+### Dictionary-based Translation
+
+Use the shared i18n system with type-safe dictionaries:
+
+```typescript
+// i18n/index.ts
+export const getDictionary = getDictionaryBuilder(dictionaries);
+export type Dictionary = Awaited<ReturnType<typeof getDictionary>>;
+export type ParamsWithLang = Promise<{ lang: Locales }>;
+
+// Page component
+export default async function UsersPage({
+  params,
+}: {
+  params: ParamsWithLang;
+}) {
+  const { lang } = await params;
+  const dict = await getDictionary(lang);
+
+  return <h1>{dict.pages.users.title}</h1>;
+}
+```
+
+### Language Routes
+
+- Use `[lang]` dynamic segments for language-based routing
+- Default to Portuguese (`"pt"`) as primary locale
+- Support automatic locale detection via middleware
+
+## API Integration with ORPC
+
+### ORPC Provider Setup
+
+Configure ORPC in the root providers:
+
+```tsx
+// app/providers.tsx
+export default function Providers({
+  children,
+  token,
+}: {
+  children: React.ReactNode;
+  token?: string;
+}) {
+  return (
+    <ThemeProvider>
+      <OrpcProvider token={token}>
+        {children}
+        <Toaster position="top-center" />
+      </OrpcProvider>
+    </ThemeProvider>
+  );
+}
+```
+
+### Data Fetching
+
+Use TanStack Query with ORPC for type-safe API calls:
+
+```tsx
+// Client Component
+"use client";
+import { useOrpc } from "@repo/next-orpc/orpc-provider";
+import { useQuery } from "@tanstack/react-query";
+
+export function UsersTable({ dict }: { dict: Dictionary }) {
+  const orpc = useOrpc();
+
+  const { data: users } = useQuery(
+    orpc.users.list.queryOptions({
+      // query params
+    })
+  );
+
+  // Component logic
+}
+```
+
+### Mutations
+
+Handle form submissions and data mutations:
+
+```tsx
+const { mutate } = useMutation(
+  orpc.auth.signIn.mutationOptions({
+    onSuccess: async (data) => {
+      await setAuthCookies(data.token, data.refreshToken, "/app");
+    },
+    onError: (error) => {
+      toast.error(`${error.message}`);
+    },
+  })
+);
+```
+
+## Form Handling
+
+### React Hook Form with Zod
+
+Use type-safe forms with validation:
+
+```tsx
+"use client";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import z from "zod";
+
+const form = useForm({
+  resolver: zodResolver(
+    z.object({
+      email: z.string().email(dict.form.email.required),
+      password: z.string().min(5, dict.form.password.required),
+    })
+  ),
+  defaultValues: {
+    email: "",
+    password: "",
+  },
+});
+
+return (
+  <Form {...form}>
+    <form onSubmit={form.handleSubmit((data) => mutate(data))}>
+      <FormField
+        control={form.control}
+        name="email"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>{dict.form.email.label}</FormLabel>
+            <FormControl>
+              <Input {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+    </form>
+  </Form>
+);
+```
+
+## UI/UX Patterns
+
+### Layout System
+
+Use the sidebar layout for authenticated pages:
+
+```tsx
+// (private)/layout.tsx
+export default async function PrivateLayout({ children }) {
+  return (
+    <SidebarProvider>
+      <AppSidebar lang={lang} dict={dict} />
+      <SidebarInset>
+        <Navbar lang={lang} dict={dict} />
+        <main className="flex flex-1 flex-col gap-4 p-4 pt-0">
+          {children}
+        </main>
+      </SidebarInset>
+    </SidebarProvider>
+  );
+}
+```
+
+### Styling Guidelines
+
+- Use Tailwind CSS with the design system from `@repo/next-ui`
+- Follow consistent spacing with `gap-4`, `p-4` patterns
+- Use semantic color variables (`bg-sidebar`, `text-muted-foreground`)
+- Maintain responsive design principles
+
+### Navigation Patterns
+
+- Use `next/navigation` hooks for client-side navigation
+- Handle redirects server-side when possible
+- Use `router.push()` for programmatic navigation
+
+## Development Workflow
+
+### Scripts and Commands
+
+```json
+{
+  "scripts": {
+    "dev": "next dev --turbopack --port 3000",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint --max-warnings 0",
+    "check-types": "tsc --noEmit"
+  }
+}
+```
+
+### Configuration
+
+- Use shared TypeScript config: `"extends": "@repo/typescript-config/nextjs.json"`
+- Configure path aliases: `"@/*": ["./src/*"]`
+- Enable Turbopack for faster development
+- Use standalone output for production deployments
+
+### Dependencies
+
+Core dependencies for Next.js apps:
+- `next`: ^15 (App Router)
+- `react`: 19.0.0 (latest stable)
+- `@repo/*`: Shared packages for auth, i18n, ORPC, UI
+- `@tanstack/react-query`: Data fetching
+- `zod`: Schema validation
+- `react-hook-form` + `@hookform/resolvers`: Form handling
+
+## Best Practices
+
+### Performance
+- Use Server Components to reduce bundle size
+- Implement proper loading states and error boundaries
+- Use `React.memo` sparingly and only when necessary
+- Optimize images and assets
+
+### Type Safety
+- Leverage TypeScript for all components and utilities
+- Use ORPC for type-safe API communication
+- Define proper interfaces for component props
+- Use dictionary types for i18n
+
+### Code Organization
+- Keep components focused and single-responsibility
+- Extract reusable logic into custom hooks
+- Use consistent naming conventions
+- Document complex business logic with comments
+
+### Testing
+- Write unit tests for utility functions
+- Test user interactions with integration tests
+- Mock ORPC calls in tests
+- Use Playwright for E2E testing when needed
+
+## Migration Notes
+
+When creating new Next.js apps in the monorepo:
+1. Copy the basic structure from `@app/admin`
+2. Update package.json with correct app name
+3. Configure environment variables
+4. Set up authentication routes if needed
+5. Implement i18n dictionaries
+6. Configure ORPC client for the app

@@ -1,0 +1,109 @@
+---
+alwaysApply: true
+description: Defines the project structure, organization, and architecture of the Blueprint monorepo
+---
+
+# Project Structure Rules
+
+This rule defines the overall architecture and organization of the Blueprint monorepo project, establishing standards for directory structure, package organization, and development patterns.
+
+## Monorepo Architecture
+
+The project follows a modular monorepo architecture using pnpm workspaces and Turbo for build orchestration.
+
+### Root Level Organization
+
+#### Applications (`apps/`)
+
+- **`admin/`**: Next.js administration interface
+  - **Framework**: Next.js 15 with React 19
+  - **Authentication**: Custom auth with Google OAuth and email/password
+  - **Internationalization**: Portuguese/English support with custom i18n
+  - **Features**: User management, authentication flows, admin dashboard
+  - **Styling**: Tailwind CSS with custom component library
+  - **State Management**: TanStack Query for server state
+
+- **`server/`**: Hono-based API server with ORPC
+  - **Framework**: Hono with ORPC (OpenRPC) for type-safe APIs
+  - **Architecture**: Clean architecture with dependency injection
+  - **Business Logic**: Embedded authentication, file storage, and user management modules
+  - **Database**: Drizzle ORM with PostgreSQL
+  - **Real-time**: WebSocket support for live features
+  - **Features**: RESTful APIs, authentication, file storage, user management
+
+#### Core Packages (`core/`)
+
+- **`constants/`**: Application-wide constants and configuration values
+  - **Purpose**: Centralized constants management
+  - **Usage**: Shared across all applications and packages
+
+- **`emails/`**: Email templates and utilities
+  - **Purpose**: React-based email templates
+  - **Framework**: React Email for responsive email design
+
+- **`schemas/`**: Database schemas using Drizzle ORM
+  - **Purpose**: Database schema definitions and migrations
+  - **Features**: Schema generation, seeding, migration management
+  - **Database**: PostgreSQL with type-safe queries
+
+#### Shared Packages (`packages/`)
+
+**Next.js Specific:**
+- **`next-auth/`**: Next.js authentication integration
+  - **Purpose**: Server actions and middleware for auth
+  - **Features**: Token refresh, session management, auth middleware
+
+- **`next-i18n/`**: Internationalization for Next.js
+  - **Features**: Translation dictionaries, locale switching
+  - **Hooks**: Custom hooks for translation in components
+  - **Middleware**: Automatic locale detection and routing
+
+- **`next-orpc/`**: ORPC client integration for Next.js
+  - **Features**: Type-safe API calls, React Query integration
+  - **Components**: Provider for ORPC context in React apps
+
+- **`next-ui/`**: UI component library
+  - **Components**: 40+ shadcn/ui components (buttons, forms, tables, etc.)
+  - **Styling**: Tailwind CSS with custom design system
+  - **Features**: Theme provider, consistent design tokens
+
+**Utility Packages:**
+- **`cookie/`**: Cookie management utilities
+  - **Features**: Secure cookie handling, auth token management
+  - **Security**: HttpOnly, secure flags, same-site protection
+
+- **`drizzle/`**: Drizzle ORM utilities
+  - **Features**: Database connection, query helpers
+  - **Configuration**: PostgreSQL connection with snake_case casing
+
+- **`orpc-context/`**: ORPC context utilities
+  - **Purpose**: Shared context for ORPC implementations
+  - **Features**: Context typing, base implementations
+
+- **`service-email/`**: Email service integration
+  - **Features**: Email sending with React templates
+  - **Providers**: External email service integration
+  - **Templates**: Type-safe email composition
+
+- **`typescript-config/`**: Shared TypeScript configurations
+  - **Configs**: Base, Next.js, React library configurations
+  - **Purpose**: Consistent TypeScript settings across the monorepo
+
+### Package Naming Convention
+
+- **Apps**: `@app/{name}` (e.g., `@app/admin`, `@app/server`)
+- **Core packages**: `@core/{name}` (e.g., `@core/schemas`)
+- **Shared packages**: `@repo/{name}` (e.g., `@repo/next-auth`)
+
+## Maintenance
+
+### Directory Structure Changes
+- Any changes to the directory structure must be reflected in this rule
+- Update package.json exports when adding new module entry points
+- Maintain consistent naming conventions across new packages
+
+### New Package Addition
+- Follow established naming conventions
+- Include proper exports in package.json
+- Add to pnpm-workspace.yaml if applicable
+- Update Turbo configuration for build dependencies

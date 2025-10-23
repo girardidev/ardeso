@@ -1,0 +1,183 @@
+{
+  "pages": {
+    "dashboard": {
+      "title": "Dashboard",
+      "description": "Bem-vindo ao seu painel de controle"
+    },
+    "users": {
+      "title": "Usuários",
+      "description": "Gerencie contas de usuários e permissões",
+      "stats": {
+        "totalUsers": {
+          "title": "Usuários Totais",
+          "description": "+2 desde o mês passado"
+        },
+        "activeUsers": {
+          "title": "Usuários Ativos",
+          "description": "% de total"
+        },
+        "pendingUsers": {
+          "title": "Usuários Pendentes",
+          "description": "Aguardando aprovação"
+        },
+        "newThisMonth": {
+          "title": "Novos Este Mês",
+          "description": "+50% desde o mês passado"
+        }
+      },
+      "table": {
+        "allUsers": "Todos os Usuários",
+        "allUsersDescription": "Uma lista de todos os usuários em seu sistema",
+        "headers": {
+          "user": "Usuário",
+          "role": "Função",
+          "status": "Status",
+          "lastActive": "Última Atividade",
+          "joinDate": "Data de Entrada",
+          "actions": "Ações"
+        },
+        "search": {
+          "placeholder": "Buscar usuários..."
+        },
+        "actions": {
+          "sendEmail": "Enviar email",
+          "callUser": "Ligar para usuário",
+          "editUser": "Editar usuário",
+          "viewProfile": "Ver perfil",
+          "deleteUser": "Excluir usuário"
+        },
+        "buttons": {
+          "export": "Exportar",
+          "addUser": "Adicionar Usuário",
+          "filter": "Filtrar"
+        }
+      }
+    },
+    "auth": {
+      "signIn": {
+        "title": "Bem-vindo de volta",
+        "description": "Entre na sua conta para continuar",
+        "form": {
+          "email": {
+            "label": "Email",
+            "placeholder": "seu@email.com",
+            "required": "Email é obrigatório"
+          },
+          "password": {
+            "label": "Senha",
+            "placeholder": "••••••••",
+            "required": "Senha é obrigatória"
+          },
+          "rememberMe": "Lembrar de mim",
+          "forgotPassword": "Esqueceu a senha?",
+          "signIn": "Entrar",
+          "signingIn": "Entrando...",
+          "noAccount": "Não tem uma conta?",
+          "createAccount": "Criar conta",
+          "orContinueWith": "Ou continue com"
+        }
+      },
+      "signUp": {
+        "title": "Criar conta",
+        "description": "Junte-se a nós e comece sua jornada",
+        "form": {
+          "firstName": {
+            "label": "Nome",
+            "placeholder": "Seu nome",
+            "required": "Nome deve ter pelo menos 2 caracteres"
+          },
+          "lastName": {
+            "label": "Sobrenome",
+            "placeholder": "Seu sobrenome",
+            "required": "Sobrenome deve ter pelo menos 2 caracteres"
+          },
+          "email": {
+            "label": "Email",
+            "placeholder": "seu@email.com",
+            "required": "Email inválido"
+          },
+          "password": {
+            "label": "Senha",
+            "placeholder": "••••••••",
+            "required": "Senha deve ter pelo menos 5 caracteres"
+          },
+          "confirmPassword": {
+            "label": "Confirmar senha",
+            "placeholder": "••••••••",
+            "required": "As senhas não coincidem"
+          },
+          "createAccount": "Criar conta",
+          "creatingAccount": "Criando conta...",
+          "hasAccount": "Já tem uma conta?",
+          "signIn": "Entrar",
+          "orContinueWith": "Ou continue com"
+        }
+      },
+      "forgotPassword": {
+        "title": "Esqueceu a senha?",
+        "description": "Digite seu email para receber instruções de recuperação",
+        "form": {
+          "email": {
+            "label": "Email",
+            "placeholder": "seu@email.com",
+            "required": "Email é obrigatório"
+          },
+          "sendInstructions": "Enviar instruções",
+          "sending": "Enviando...",
+          "rememberAccount": "Lembra da sua conta?",
+          "signIn": "Entrar",
+          "or": "ou então",
+          "createAccount": "criar conta"
+        },
+        "success": {
+          "title": "Email enviado!",
+          "description": "Verifique sua caixa de entrada e siga as instruções para redefinir sua senha.",
+          "backToLogin": "Voltar ao login"
+        }
+      }
+    }
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "users": "Usuários",
+    "reports": "Relatórios",
+    "settings": "Configurações",
+    "profile": "Perfil",
+    "support": "Suporte",
+    "logout": "Sair",
+    "logoutDialog": {
+      "title": "Confirmar saída",
+      "description": "Tem certeza que deseja sair da sua conta?",
+      "confirm": "Sair",
+      "cancel": "Cancelar"
+    },
+    "search": {
+      "placeholder": "Buscar..."
+    },
+    "notifications": "Notificações"
+  },
+  "common": {
+    "actions": {
+      "save": "Salvar",
+      "cancel": "Cancelar",
+      "delete": "Excluir",
+      "edit": "Editar",
+      "view": "Ver"
+    },
+    "status": {
+      "active": "ativo",
+      "inactive": "inativo",
+      "pending": "pendente"
+    },
+    "roles": {
+      "admin": "administrador",
+      "moderator": "moderador",
+      "user": "usuário"
+    },
+    "legal": {
+      "termsOfService": "Termos de Serviço",
+      "privacyPolicy": "Política de Privacidade",
+      "agreement": "Ao continuar, você concorda com nossos"
+    }
+  }
+}

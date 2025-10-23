@@ -1,0 +1,49 @@
+---
+alwaysApply: true
+description: Ensures Cursor Rules are consistently followed and maintained up-to-date across the project
+---
+
+# Cursor Rules Consistency and Maintenance
+
+This rule ensures that all Cursor Rules are consistently followed and regularly maintained to reflect current project standards and practices.
+
+## Rule Compliance Requirements
+
+### Always Verify Rule Adherence
+- **Before any code changes**: Check if existing rules apply to the files being modified
+- **During development**: Ensure new code follows all relevant always-applied rules
+- **Code reviews**: Verify that changes comply with applicable rules
+
+### Rule Maintenance Obligations
+
+#### Regular Review Process
+- **Monthly review**: Examine existing rules for relevance and accuracy
+- **Project changes**: Update rules when project structure, conventions, or technologies change
+- **New patterns**: Create new rules for emerging patterns that should be standardized
+
+#### Rule Quality Standards
+- **Completeness**: Rules must be comprehensive and cover all relevant scenarios
+- **Clarity**: Rules should be unambiguous and easy to understand
+- **Actionability**: Rules must provide clear guidance on how to implement requirements
+
+### Documentation Consistency
+
+#### Rule Updates
+- Update rule descriptions when scope or application changes
+- Remove obsolete rules that no longer apply to the current project state
+- Maintain consistent terminology and formatting across all rules
+
+## Enforcement Guidelines
+
+### Violation Handling
+- **Immediate correction**: Fix rule violations as soon as they are identified
+- **Documentation**: Document any exceptions or special cases in relevant rules
+- **Communication**: Discuss potential rule changes with team members when conflicts arise
+
+### Continuous Improvement
+- **Feedback integration**: Incorporate team feedback into rule refinements
+- **Best practices**: Update rules to reflect evolving industry standards
+- **Project evolution**: Modify rules as the project architecture and requirements change
+
+## Related Rules
+- [rules-guidelines.mdc](mdc:rules-guidelines.mdc) - Fundamental standards for rule creation and maintenance

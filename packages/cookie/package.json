@@ -1,0 +1,17 @@
+{
+  "name": "@repo/cookie",
+  "scripts": {
+    "watch": "tsup --watch",
+    "build": "tsup",
+    "check-types": "tsc --noEmit"
+  },
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*"
+  }
+}

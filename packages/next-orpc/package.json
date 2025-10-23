@@ -1,0 +1,29 @@
+{
+  "name": "@repo/next-orpc",
+  "scripts": {
+    "check-types": "tsc --noEmit"
+  },
+  "exports": {
+    "./*": "./src/*.ts",
+    "./orpc-provider": "./src/orpc-provider.tsx",
+    "./query/hydration": "./src/query/hydration.tsx"
+  },
+  "dependencies": {
+    "@repo/next-auth": "workspace:*",
+    "@orpc/client": "^1.8.6",
+    "@orpc/contract": "^1.8.6",
+    "@orpc/openapi-client": "^1.8.8",
+    "@orpc/tanstack-query": "^1.8.8",
+    "superjson": "^2.2.2"
+  },
+  "devDependencies": {
+    "@app/server": "workspace:*",
+    "@repo/typescript-config": "workspace:*"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "*",
+    "next": "*",
+    "react": "*",
+    "@types/react": "*"
+  }
+}

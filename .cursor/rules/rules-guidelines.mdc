@@ -1,0 +1,137 @@
+---
+alwaysApply: false
+---
+
+# Cursor Rules Guidelines
+
+This rule establishes the fundamental standards and guidelines for creating and maintaining Cursor Rules in this project. All rules must follow these guidelines.
+
+## Language Requirement
+
+**All Cursor Rules must be written in English.** This ensures consistency and accessibility for international team members and maintains professional standards across the project.
+
+## Rule Creation Standards
+
+### File Naming
+- Use descriptive, hyphen-separated names (e.g., `auth-validation.mdc`, `typescript-conventions.mdc`)
+- Avoid generic names like `rule1.mdc` or `temp.mdc`
+
+### File Location
+- All rules must be stored in the `.cursor/rules/` directory
+- Use the `.mdc` extension for all rule files
+
+### Metadata Requirements
+
+Choose metadata based on rule scope and application context:
+
+#### **alwaysApply** (true/false)
+- **`true`**: Universal rules that apply across the entire project
+  - Project-wide architecture standards
+  - Global coding conventions
+  - Security requirements
+  - Quality assurance guidelines
+- **`false`**: Contextual or scoped rules
+  - Application-specific patterns
+  - Feature-specific documentation
+  - Temporary or experimental rules
+
+#### **globs** (optional)
+- Use when rules apply to specific file paths or types
+- Common patterns:
+  - `apps/admin/**` - Admin application files
+  - `apps/server/**` - Server application files
+  - `packages/*/src/**` - Source files in shared packages
+  - `*.ts,*.tsx` - TypeScript files only
+  - `**/*.config.*` - Configuration files
+- **Priority over alwaysApply**: When globs is present, alwaysApply is ignored
+
+#### **description**
+- Must be clear, specific, and searchable
+- Focus on the rule's purpose and scope
+- Include key context for AI agents to find and understand the rule
+- Examples:
+  - "Defines authentication patterns for admin app" (specific scope)
+  - "TypeScript conventions for React components" (technology + context)
+  - "Database schema migration guidelines" (specific domain)
+
+### Metadata Decision Framework
+
+Follow this flowchart to choose the right metadata combination:
+
+1. **Is this rule universal across the entire project?**
+   - Yes → `alwaysApply: true` (no globs needed)
+   - No → Continue to step 2
+
+2. **Does this rule apply to specific file paths or types?**
+   - Yes → Use `globs` + `alwaysApply: false`
+   - No → `alwaysApply: false` (manual rule)
+
+3. **Examples of common metadata patterns:**
+   ```
+   # Project-wide security
+   alwaysApply: true
+   description: "Security guidelines for all applications"
+
+   # Admin app specific
+   alwaysApply: false
+   globs: apps/admin/**
+   description: "Architecture patterns for admin application"
+
+   # TypeScript files only
+   alwaysApply: false
+   globs: *.ts,*.tsx
+   description: "TypeScript coding conventions"
+
+   # Manual/API documentation
+   alwaysApply: false
+   description: "API endpoints reference guide"
+   ```
+
+## Content Standards
+
+### Structure
+- Start with a clear, descriptive title
+- Use proper Markdown formatting with headers, lists, and code blocks
+- Include practical examples when possible
+
+### File References
+- Use the format `[filename.ext](mdc:filename.ext)` for file references
+- Reference files relative to the workspace root
+
+### Quality Assurance
+- Rules should be actionable and specific
+- Include context about when and how to apply the rule
+- Keep content concise but comprehensive
+
+## Rule Categories
+
+### Always-Applied Rules (alwaysApply: true)
+- Fundamental project conventions
+- Architecture standards
+- Code quality requirements
+- Security guidelines
+
+### Manual Rules (alwaysApply: false)
+- Feature-specific documentation
+- API documentation
+- Contextual development guides
+- Temporary or experimental rules
+
+### File-Type Specific Rules (using globs)
+- Application-specific architecture (e.g., `apps/admin/**`)
+- Package-specific patterns (e.g., `packages/*/src/**`)
+- Language-specific conventions (e.g., `*.ts,*.tsx`)
+- Framework-specific patterns (e.g., `apps/*/src/app/**` for Next.js)
+- Configuration file standards (e.g., `**/*.config.*`)
+
+## Maintenance
+
+### Updates
+- Keep rules current with project evolution
+- Update descriptions when rule scope changes
+- Remove obsolete rules promptly
+
+### Consistency
+- Follow the established patterns in existing rules
+- Maintain consistent terminology across rules
+- Ensure rules don't conflict with each other
