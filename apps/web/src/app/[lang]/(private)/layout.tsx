@@ -14,8 +14,9 @@ export default async function PrivateLayout({
 
   return (
     <>
-      <Navbar lang={lang} dict={dict} />
-      <main className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</main>
+      <Navbar dict={dict} />
+
+      <main className="flex-1">{children}</main>
     </>
   );
 }

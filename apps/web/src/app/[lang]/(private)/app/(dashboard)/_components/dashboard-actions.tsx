@@ -14,39 +14,43 @@ interface DashboardActionsProps {
 
 export function DashboardActions({ dict }: DashboardActionsProps) {
   return (
-    <div className="flex flex-wrap gap-2">
-      <Button
-        variant="outline"
-        size="sm"
-        className="gap-2 h-9 bg-muted/50 border-border/50 hover:bg-accent/50 text-muted-foreground"
-      >
-        <Plus className="w-3.5 h-3.5" />
-        {dict.newProject}
-      </Button>
-      <Button
-        variant="outline"
-        size="sm"
-        className="gap-2 h-9 bg-muted/50 border-border/50 hover:bg-accent/50 text-muted-foreground"
-      >
-        <FolderPlus className="w-3.5 h-3.5" />
-        {dict.newFolder}
-      </Button>
-      <Button
-        variant="outline"
-        size="sm"
-        className="gap-2 h-9 bg-muted/50 border-border/50 hover:bg-accent/50 text-muted-foreground"
-      >
-        <FileUp className="w-3.5 h-3.5" />
-        {dict.importProjectFile}
-      </Button>
-      <Button
-        variant="outline"
-        size="sm"
-        className="gap-2 h-9 bg-muted/50 border-border/50 hover:bg-accent/50 text-muted-foreground"
-      >
-        <RefreshCw className="w-3.5 h-3.5" />
-        {dict.syncProjects}
-      </Button>
+    <div className="grid grid-cols-4 gap-2">
+      <DashboardActionButton
+        icon={<Plus className="w-3.5 h-3.5" />}
+        label={dict.newProject}
+      />
+      <DashboardActionButton
+        icon={<FolderPlus className="w-3.5 h-3.5" />}
+        label={dict.newFolder}
+      />
+      <DashboardActionButton
+        icon={<FileUp className="w-3.5 h-3.5" />}
+        label={dict.importProjectFile}
+      />
+      <DashboardActionButton
+        icon={<RefreshCw className="w-3.5 h-3.5" />}
+        label={dict.syncProjects}
+      />
     </div>
+  );
+}
+
+function DashboardActionButton({
+  icon,
+  label,
+}: {
+  icon: React.ReactNode;
+  label: string;
+}) {
+  return (
+    <Button
+      variant="outline"
+      size="sm"
+      className="h-22 flex justify-start items-center gap-2"
+    >
+      <span className="w-2" />
+      {icon}
+      {label}
+    </Button>
   );
 }

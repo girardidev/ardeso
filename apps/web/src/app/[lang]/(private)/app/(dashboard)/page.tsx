@@ -1,6 +1,5 @@
 import { getDictionary, type ParamsWithLang } from "@/i18n";
 import { DashboardActions } from "./_components/dashboard-actions";
-import { DashboardHeader } from "./_components/dashboard-header";
 import { LoadingSection } from "./_components/loading-section";
 
 export default async function Dashboard({
@@ -12,9 +11,7 @@ export default async function Dashboard({
   const dict = (await getDictionary(lang)).pages.dashboard;
 
   return (
-    <div className="fixed inset-0 flex flex-col bg-background">
-      <DashboardHeader dict={dict.header} />
-
+    <div className="flex flex-col">
       <main className="flex-1 overflow-auto container mx-auto">
         <div className="p-5 space-y-5">
           <DashboardActions dict={dict.actions} />
