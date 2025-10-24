@@ -1,8 +1,5 @@
 "use client";
 
-import Logo from "@/assets/logo.png";
-import { useUser } from "@/components/user-provider";
-import type { Dictionary } from "@/i18n";
 import { deleteAuthCookies } from "@repo/next-auth/actions/cookie";
 import {
   AlertDialog,
@@ -39,8 +36,10 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useState } from "react";
+import Logo from "@/assets/logo.png";
+import { useUser } from "@/components/user-provider";
+import type { Dictionary } from "@/i18n";
 
 interface DashboardHeaderProps {
   dict: Dictionary;
