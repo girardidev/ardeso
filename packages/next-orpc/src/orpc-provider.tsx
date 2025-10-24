@@ -46,3 +46,13 @@ export const useOrpc = () => {
 
   return context.orpc;
 };
+
+export const useIsAuthenticated = () => {
+  const context = useContext(orpcContext);
+
+  if (!context) {
+    throw new Error("useIsAuthenticated must be used within a OrpcProvider");
+  }
+
+  return !!context.token;
+};

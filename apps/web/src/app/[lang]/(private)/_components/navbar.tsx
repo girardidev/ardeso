@@ -29,7 +29,14 @@ import {
   DropdownMenuTrigger,
 } from "@repo/next-ui/components/ui/dropdown-menu";
 import { cn } from "@repo/next-ui/lib/utils";
-import { ChevronDown, Folder, Hammer, Home, Loader2Icon, Users } from "lucide-react";
+import {
+  ChevronDown,
+  Folder,
+  Hammer,
+  Home,
+  Loader2Icon,
+  Users,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -127,18 +134,26 @@ export function Navbar({ dict }: DashboardHeaderProps) {
             <Button
               variant="ghost"
               size="sm"
-              className={cn("gap-1.5 text-muted-foreground hover:text-foreground hover:bg-accent h-8 text-xs font-normal px-3")}
+              className={cn(
+                "gap-1.5 text-muted-foreground hover:text-foreground hover:bg-accent h-8 text-xs font-normal px-3",
+              )}
+              asChild
             >
-              <Folder className="w-3.5 h-3.5" />
-              {dict.pages.dashboard.header.projects}
+              <Link href="/app">
+                <Folder className="w-3.5 h-3.5" />
+                {dict.pages.dashboard.header.projects}
+              </Link>
             </Button>
             <Button
               variant="ghost"
               size="sm"
               className="gap-1.5 text-muted-foreground hover:text-foreground hover:bg-accent h-8 text-xs font-normal px-3"
+              asChild
             >
-              <Hammer className="w-3.5 h-3.5" />
-              {dict.pages.dashboard.header.builds}
+              <Link href="/app/builds">
+                <Hammer className="w-3.5 h-3.5" />
+                {dict.pages.dashboard.header.builds}
+              </Link>
             </Button>
 
             <DropdownMenu>
@@ -149,12 +164,15 @@ export function Navbar({ dict }: DashboardHeaderProps) {
                 >
                   <Avatar className="size-6">
                     {user?.avatar && (
-                    <AvatarImage
-                      src={user?.avatar}
-                      alt="Admin"
-                    />  
+                      <AvatarImage src={user?.avatar} alt="Admin" />
                     )}
-                    <AvatarFallback>{user ? `${user?.firstName?.charAt(0)}${user?.lastName?.charAt(0)}` : <Loader2Icon className="size-4 animate-spin" />}</AvatarFallback>
+                    <AvatarFallback>
+                      {user ? (
+                        `${user?.firstName?.charAt(0)}${user?.lastName?.charAt(0)}`
+                      ) : (
+                        <Loader2Icon className="size-4 animate-spin" />
+                      )}
+                    </AvatarFallback>
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
@@ -169,10 +187,10 @@ export function Navbar({ dict }: DashboardHeaderProps) {
                     </p>
                   </div>
                 </DropdownMenuLabel>
-                <DropdownMenuSeparator />
+                {/* <DropdownMenuSeparator />
                 <DropdownMenuItem>{dict.navigation.profile}</DropdownMenuItem>
                 <DropdownMenuItem>{dict.navigation.settings}</DropdownMenuItem>
-                <DropdownMenuItem>{dict.navigation.support}</DropdownMenuItem>
+                <DropdownMenuItem>{dict.navigation.support}</DropdownMenuItem> */}
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleLogoutClick}>
                   {dict.navigation.logout}
