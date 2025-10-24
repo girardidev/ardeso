@@ -17,6 +17,10 @@ This index provides a centralized reference for all Cursor Rules in the project.
 **Always Applied:** No (Manual rule)
 **Usage:** Guidelines for creating structured task execution plans using temporary PLAN.md files. Use when planning complex multi-step development tasks that require careful sequencing and documentation.
 
+### [task-execution-validation.mdc](mdc:task-execution-validation.mdc)
+**Always Applied:** Yes
+**Usage:** Automatically enforced on all development activities. Defines procedures for executing user tasks, validation requirements, and restricts build script execution to ensure consistent code quality.
+
 ### [rules-consistency-maintenance.mdc](mdc:rules-consistency-maintenance.mdc)
 **Always Applied:** Yes  
 **Usage:** Automatically enforced on all development activities. Ensures all Cursor Rules are consistently followed and regularly maintained to reflect current project standards.

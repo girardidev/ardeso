@@ -1,5 +1,7 @@
 "use client";
 
+import MockImage from "@/assets/background.png";
+import type { Dictionary } from "@/i18n";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -11,6 +13,7 @@ import {
   AlertDialogTitle,
 } from "@repo/next-ui/components/ui/alert-dialog";
 import { Button } from "@repo/next-ui/components/ui/button";
+import { Card, CardHeader, CardTitle } from "@repo/next-ui/components/ui/card";
 import {
   Dialog,
   DialogContent,
@@ -27,29 +30,34 @@ import {
   DropdownMenuTrigger,
 } from "@repo/next-ui/components/ui/dropdown-menu";
 import { FolderSearch2Icon, ImagesIcon, SignalHighIcon } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 import { FaLinux } from "react-icons/fa6";
 
+interface StreamingFloatingMenuProps {
+  dict: Dictionary["software"]["streaming"]["floatingMenu"];
+}
+
 const mockProjects = [
-  { id: "1", name: "Casa Moderna", description: "Projeto residencial 3D" },
-  { id: "2", name: "Edifício Comercial", description: "Complexo empresarial" },
-  { id: "3", name: "Shopping Center", description: "Centro comercial premium" },
+  { id: "1", name: "Modern House", description: "3D residential project" },
+  { id: "2", name: "Commercial Building", description: "Business complex" },
+  { id: "3", name: "Shopping Center", description: "Premium shopping mall" },
   {
     id: "4",
-    name: "Condomínio Fechado",
-    description: "Área residencial completa",
+    name: "Gated Community",
+    description: "Complete residential area",
   },
 ];
 
 const mockImages = [
-  { id: "1", name: "Fachada Principal.jpg", size: "2.4 MB" },
-  { id: "2", name: "Interior Living.jpg", size: "1.8 MB" },
-  { id: "3", name: "Vista Aérea.jpg", size: "3.2 MB" },
-  { id: "4", name: "Plantas Baixas.jpg", size: "1.5 MB" },
-  { id: "5", name: "Render Noturno.jpg", size: "2.9 MB" },
+  { id: "1", name: "Main Facade.jpg", size: "2.4 MB" },
+  { id: "2", name: "Living Interior.jpg", size: "1.8 MB" },
+  { id: "3", name: "Aerial View.jpg", size: "3.2 MB" },
+  { id: "4", name: "Floor Plans.jpg", size: "1.5 MB" },
+  { id: "5", name: "Night Render.jpg", size: "2.9 MB" },
 ];
 
-export function StreamingFloatingMenu() {
+export function StreamingFloatingMenu({ dict }: StreamingFloatingMenuProps) {
   const [projectsModalOpen, setProjectsModalOpen] = useState(false);
   const [imagesModalOpen, setImagesModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<
@@ -81,34 +89,38 @@ export function StreamingFloatingMenu() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="w-56">
-            <DropdownMenuLabel>Informações do Sistema</DropdownMenuLabel>
+            <DropdownMenuLabel>{dict.systemInfo}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem disabled>
               <div className="flex flex-col gap-1">
                 <span className="text-xs text-muted-foreground">
-                  Sistema Operacional
+                  {dict.operatingSystem}
                 </span>
-                <span className="font-medium">Ubuntu 22.04 LTS</span>
+                <span className="font-medium">Linux (Amazon Linux 2023)</span>
               </div>
             </DropdownMenuItem>
             <DropdownMenuItem disabled>
               <div className="flex flex-col gap-1">
-                <span className="text-xs text-muted-foreground">Versão</span>
+                <span className="text-xs text-muted-foreground">
+                  {dict.version}
+                </span>
                 <span className="font-medium">v0.2.12</span>
               </div>
             </DropdownMenuItem>
             <DropdownMenuItem disabled>
               <div className="flex flex-col gap-1">
                 <span className="text-xs text-muted-foreground">
-                  Qualidade de Streaming
+                  {dict.streamingQuality}
                 </span>
-                <span className="font-medium">Alta (1080p @ 60fps)</span>
+                <span className="font-medium">High (1080p @ 60fps)</span>
               </div>
             </DropdownMenuItem>
             <DropdownMenuItem disabled>
               <div className="flex flex-col gap-1">
-                <span className="text-xs text-muted-foreground">Latência</span>
-                <span className="font-medium">23ms</span>
+                <span className="text-xs text-muted-foreground">
+                  {dict.latency}
+                </span>
+                <span className="font-medium">--ms</span>
               </div>
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -134,24 +146,28 @@ export function StreamingFloatingMenu() {
       <Dialog open={projectsModalOpen} onOpenChange={setProjectsModalOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Projetos Disponíveis</DialogTitle>
-            <DialogDescription>
-              Selecione um projeto para carregar no streaming
-            </DialogDescription>
+            <DialogTitle>{dict.availableProjects}</DialogTitle>
+            <DialogDescription>{dict.selectProject}</DialogDescription>
           </DialogHeader>
-          <div className="space-y-2 max-h-96 overflow-y-auto">
+          <div className="max-h-96 overflow-y-auto grid grid-cols-1 md:grid-cols-2 gap-4">
             {mockProjects.map((project) => (
-              <button
-                type="button"
+              <Card
                 key={project.id}
+                className="pt-0 overflow-hidden gap-0 cursor-pointer"
                 onClick={() => handleProjectSelect(project)}
-                className="w-full p-4 text-left border rounded-lg hover:bg-accent hover:border-accent-foreground transition-colors"
               >
-                <h3 className="font-semibold">{project.name}</h3>
-                <p className="text-sm text-muted-foreground">
-                  {project.description}
-                </p>
-              </button>
+                <Image
+                  src={MockImage}
+                  alt={project.name}
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  style={{ width: "100%", height: "auto" }}
+                />
+                <CardHeader className="px-1 mt-3">
+                  <CardTitle>{project.name}</CardTitle>
+                </CardHeader>
+              </Card>
             ))}
           </div>
         </DialogContent>
@@ -160,10 +176,8 @@ export function StreamingFloatingMenu() {
       <Dialog open={imagesModalOpen} onOpenChange={setImagesModalOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Imagens do Projeto</DialogTitle>
-            <DialogDescription>
-              Visualize as imagens disponíveis
-            </DialogDescription>
+            <DialogTitle>{dict.projectImages}</DialogTitle>
+            <DialogDescription>{dict.viewAvailableImages}</DialogDescription>
           </DialogHeader>
           <div className="space-y-2 max-h-96 overflow-y-auto">
             {mockImages.map((image) => (
@@ -183,7 +197,7 @@ export function StreamingFloatingMenu() {
                   </div>
                 </div>
                 <Button variant="ghost" size="sm">
-                  Visualizar
+                  {dict.view}
                 </Button>
               </div>
             ))}
@@ -194,18 +208,20 @@ export function StreamingFloatingMenu() {
       <AlertDialog open={confirmDialogOpen} onOpenChange={setConfirmDialogOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Carregar Projeto</AlertDialogTitle>
+            <AlertDialogTitle>{dict.loadProject}</AlertDialogTitle>
             <AlertDialogDescription>
-              Tem certeza que deseja carregar o projeto "{selectedProject?.name}
-              " no streaming? Esta ação pode levar alguns minutos.
+              {dict.confirmLoadProject.replace(
+                "{projectName}",
+                selectedProject?.name || "",
+              )}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel onClick={() => setSelectedProject(null)}>
-              Cancelar
+              {dict.cancel}
             </AlertDialogCancel>
             <AlertDialogAction onClick={handleConfirmLoadProject}>
-              Confirmar
+              {dict.confirm}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

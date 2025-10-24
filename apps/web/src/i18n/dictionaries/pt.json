@@ -187,7 +187,23 @@
       "welcomeDescription": "Digite seu nome para continuar.",
       "nameLabel": "Nome",
       "namePlaceholder": "Digite seu nome",
-      "enterButton": "Entrar"
+      "enterButton": "Entrar",
+      "floatingMenu": {
+        "systemInfo": "Informações do Sistema",
+        "operatingSystem": "Sistema Operacional",
+        "version": "Versão",
+        "streamingQuality": "Qualidade de Streaming",
+        "latency": "Latência",
+        "availableProjects": "Projetos Disponíveis",
+        "selectProject": "Selecione um projeto para carregar no streaming",
+        "projectImages": "Imagens do Projeto",
+        "viewAvailableImages": "Visualize as imagens disponíveis",
+        "view": "Visualizar",
+        "loadProject": "Carregar Projeto",
+        "confirmLoadProject": "Tem certeza que deseja carregar o projeto \"{projectName}\" no streaming? Esta ação pode levar alguns minutos.",
+        "cancel": "Cancelar",
+        "confirm": "Confirmar"
+      }
     }
   },
   "common": {

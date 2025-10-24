@@ -39,6 +39,7 @@ export function StreamingClient({ dict }: StreamingClientProps) {
               StreamerAutoJoinInterval: 1000,
               MatchViewportRes: true,
             }}
+            dict={dict.floatingMenu}
           />
         )}
       </div>

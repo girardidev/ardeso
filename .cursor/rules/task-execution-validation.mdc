@@ -1,0 +1,66 @@
+---
+alwaysApply: true
+description: "Guidelines for executing user tasks and validation procedures"
+---
+
+# Task Execution and Validation Guidelines
+
+This rule establishes the standard procedures for executing user-requested tasks and ensuring proper validation of completed work.
+
+## Task Execution Principles
+
+### Task Following
+- **Complete Execution**: Always execute tasks to their full completion without shortcuts or partial implementations
+- **Sequential Processing**: Handle complex multi-step tasks systematically, completing each step before moving to the next
+- **Context Preservation**: Maintain awareness of task dependencies and relationships throughout execution
+
+### Validation Requirements
+- **Code Quality Checks**: Validate all code changes through proper linting and type checking
+- **Integration Testing**: Ensure modifications integrate correctly with existing codebase
+- **Error Prevention**: Address potential issues before they become problems
+
+## Build and Script Restrictions
+
+### Prohibited Actions
+- **Build Scripts**: Never execute any build-related scripts (npm run build, pnpm build, etc.)
+- **Deployment Scripts**: Avoid deployment or production-related commands
+- **Database Migrations**: Do not run migration scripts unless explicitly requested
+
+### Allowed Validation Commands
+Execute **only** these validation commands when checking work completion:
+
+```bash
+pnpm check-types    # TypeScript type checking across all packages
+pnpm check          # Code linting and formatting validation
+```
+
+### Command Usage Guidelines
+- **Exclusive Commands**: Only use the two specified commands for validation
+- **No Custom Scripts**: Do not create or execute custom scripts
+- **No Build Commands**: Never run build, dev, or start scripts for validation purposes
+
+## Validation Workflow
+
+### Post-Execution Checklist
+1. **Type Checking**: Run `pnpm check-types` to verify TypeScript types across all packages
+2. **Code Quality**: Run `pnpm check` for linting and formatting validation
+3. **Error Resolution**: Fix any issues identified by validation commands
+4. **Re-validation**: Re-run checks after fixes to ensure resolution
+
+### Quality Assurance
+- **Zero Errors**: Aim for zero errors in type checking and linting
+- **Consistent Standards**: Maintain codebase consistency across all modifications
+- **Documentation**: Update relevant documentation when code changes affect usage
+
+## Task Completion Criteria
+
+### Successful Execution Indicators
+- **Validation Passes**: Both `pnpm check-types` and `npx biome check --write` complete without errors
+- **Requirements Met**: All user-specified requirements are fully implemented
+- **Code Integration**: Changes integrate seamlessly with existing codebase
+- **No Regressions**: Existing functionality remains unaffected
+
+### Completion Reporting
+- **Clear Status**: Report completion status explicitly
+- **Issue Documentation**: Document any unresolved issues or limitations
+- **Next Steps**: Suggest follow-up actions if applicable

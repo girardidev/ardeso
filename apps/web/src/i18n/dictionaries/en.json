@@ -187,7 +187,23 @@
       "welcomeDescription": "Please enter your name to continue.",
       "nameLabel": "Name",
       "namePlaceholder": "Enter your name",
-      "enterButton": "Enter"
+      "enterButton": "Enter",
+      "floatingMenu": {
+        "systemInfo": "System Information",
+        "operatingSystem": "Operating System",
+        "version": "Version",
+        "streamingQuality": "Streaming Quality",
+        "latency": "Latency",
+        "availableProjects": "Available Projects",
+        "selectProject": "Select a project to load in streaming",
+        "projectImages": "Project Images",
+        "viewAvailableImages": "View available images",
+        "view": "View",
+        "loadProject": "Load Project",
+        "confirmLoadProject": "Are you sure you want to load the project \"{projectName}\" in streaming?",
+        "cancel": "Cancel",
+        "confirm": "Confirm"
+      }
     }
   },
   "common": {

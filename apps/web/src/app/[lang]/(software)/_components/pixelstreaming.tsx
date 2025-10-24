@@ -7,14 +7,17 @@ import {
 } from "@epicgames-ps/lib-pixelstreamingfrontend-ue5.6";
 
 import { useEffect, useRef, useState } from "react";
+import type { Dictionary } from "@/i18n";
 import { StreamingFloatingMenu } from "./streaming-floating-menu";
 
 export interface PixelStreamingWrapperProps {
   initialSettings?: Partial<AllSettings>;
+  dict: Dictionary["software"]["streaming"]["floatingMenu"];
 }
 
 export const PixelStreamingWrapper = ({
   initialSettings,
+  dict,
 }: PixelStreamingWrapperProps) => {
   const videoParent = useRef<HTMLDivElement>(null);
 
@@ -40,7 +43,7 @@ export const PixelStreamingWrapper = ({
   return (
     <div className="relative flex-1">
       <div className="absolute top-0 left-0 w-full h-full" ref={videoParent} />
-      <StreamingFloatingMenu />
+      <StreamingFloatingMenu dict={dict} />
     </div>
   );
 };
