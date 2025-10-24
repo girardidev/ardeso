@@ -181,6 +181,15 @@
     },
     "notifications": "Notifications"
   },
+  "software": {
+    "streaming": {
+      "welcomeTitle": "Welcome to the Streaming",
+      "welcomeDescription": "Please enter your name to continue.",
+      "nameLabel": "Name",
+      "namePlaceholder": "Enter your name",
+      "enterButton": "Enter"
+    }
+  },
   "common": {
     "actions": {
       "save": "Save",
