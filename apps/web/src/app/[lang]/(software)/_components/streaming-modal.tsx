@@ -22,7 +22,7 @@ interface StreamingModalProps {
 }
 
 export function StreamingModal({ dict, onSubmit }: StreamingModalProps) {
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const [userName, setUserName] = useState("");
   const inputId = useId();
 

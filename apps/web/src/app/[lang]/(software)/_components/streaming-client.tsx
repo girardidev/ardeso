@@ -11,7 +11,7 @@ interface StreamingClientProps {
 }
 
 export function StreamingClient({ dict }: StreamingClientProps) {
-  const [isReady, setIsReady] = useState(false);
+  const [isReady, setIsReady] = useState(true);
 
   const handleUserSubmit = (userName: string) => {
     console.log("User submitted name:", userName);
