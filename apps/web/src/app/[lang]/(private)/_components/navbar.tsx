@@ -186,9 +186,12 @@ export function Navbar({ dict }: DashboardHeaderProps) {
                     </p>
                   </div>
                 </DropdownMenuLabel>
-                {/* <DropdownMenuSeparator />
+                <DropdownMenuSeparator />
                 <DropdownMenuItem>{dict.navigation.profile}</DropdownMenuItem>
-                <DropdownMenuItem>{dict.navigation.settings}</DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/">{dict.navigation.software}</Link>
+                </DropdownMenuItem>
+                {/* <DropdownMenuItem>{dict.navigation.settings}</DropdownMenuItem>
                 <DropdownMenuItem>{dict.navigation.support}</DropdownMenuItem> */}
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleLogoutClick}>

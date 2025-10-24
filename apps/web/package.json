@@ -8,10 +8,11 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "@repo/next-i18n": "workspace:*",
-    "@repo/next-ui": "workspace:*",
-    "@repo/next-orpc": "workspace:*",
+    "@epicgames-ps/lib-pixelstreamingfrontend-ue5.6": "^0.2.4",
     "@repo/next-auth": "workspace:*",
+    "@repo/next-i18n": "workspace:*",
+    "@repo/next-orpc": "workspace:*",
+    "@repo/next-ui": "workspace:*",
     "@tanstack/react-query": "^5.89.0",
     "next": "^15",
     "react": "19.0.0",
@@ -27,9 +28,9 @@
     "@types/react-dom": "19.0.0"
   },
   "peerDependencies": {
-    "next-themes": "*",
-    "react-hook-form": "*",
     "@hookform/resolvers": "*",
-    "lucide-react": "*"
+    "lucide-react": "*",
+    "next-themes": "*",
+    "react-hook-form": "*"
   }
 }
